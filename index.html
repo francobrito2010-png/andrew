@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0A0A0B">
+<title>FORJA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600&family=Inter:wght@400;500;600&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+.forja-root{
+  --obsidian:#0A0A0B; --carbon:#161618; --carbon2:#1d1d20;
+  --oxblood:#6E1114; --ember:#C1121F; --brass:#C9A24B; --bone:#EDE8DF; --ash:#8A857C;
+  font-family:'Inter',sans-serif; color:var(--bone);
+  background:radial-gradient(120% 80% at 50% -10%, #1a0d0e 0%, var(--obsidian) 55%);
+  min-height:100vh; max-width:480px; margin:0 auto; position:relative;
+  display:flex; flex-direction:column; padding-bottom:78px;
+}
+.topbar{display:flex;justify-content:space-between;align-items:center;
+  padding:18px 20px 10px; position:sticky; top:0; z-index:5;
+  background:linear-gradient(180deg, var(--obsidian) 60%, transparent);}
+.brand{font-family:'Bebas Neue';font-size:30px;letter-spacing:6px;color:var(--bone);}
+.rankchip{display:flex;flex-direction:column;align-items:flex-end;line-height:1;}
+.rank-eyebrow{font-family:'Oswald';font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;}
+.rank-name{font-family:'Bebas Neue';font-size:20px;letter-spacing:2px;color:var(--brass);}
+
+.screen{flex:1;padding:8px 20px 28px;overflow-y:auto;}
+.fade{animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:'Oswald';font-size:11px;letter-spacing:4px;color:var(--ash);text-transform:uppercase;margin-bottom:6px;}
+.hero{font-family:'Bebas Neue';font-size:64px;line-height:.86;letter-spacing:1px;color:var(--bone);margin-bottom:14px;}
+.hero-sm{font-family:'Bebas Neue';font-size:46px;letter-spacing:2px;margin-bottom:18px;}
+
+.forge-wrap{display:flex;flex-direction:column;align-items:center;margin:6px 0 18px;}
+.ember-outer{width:196px;height:196px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  position:relative;transition:box-shadow .6s ease;}
+.ember{position:absolute;inset:0;border-radius:50%;transition:all .6s ease;}
+.ember-core{position:relative;z-index:2;text-align:center;}
+.ember-count{font-family:'Bebas Neue';font-size:52px;line-height:1;color:var(--bone);text-shadow:0 2px 12px rgba(0,0,0,.6);}
+.ember-label{font-family:'Oswald';font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(237,232,223,.8);}
+.forge-caption{font-family:'Oswald';font-size:12px;letter-spacing:1px;color:var(--ash);margin-top:16px;text-align:center;}
+
+.stats{display:flex;gap:10px;margin:4px 0 10px;}
+.stat{flex:1;background:var(--carbon);border:1px solid rgba(201,162,75,.14);border-radius:12px;padding:12px 8px;text-align:center;}
+.stat-value{font-family:'Bebas Neue';font-size:28px;color:var(--brass);line-height:1;}
+.stat-label{font-family:'Oswald';font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-top:4px;}
+.xpbar{height:5px;background:var(--carbon2);border-radius:3px;overflow:hidden;margin-bottom:22px;}
+.xpbar-fill{height:100%;background:linear-gradient(90deg,var(--oxblood),var(--ember),var(--brass));transition:width .4s ease;}
+
+.section-title{font-family:'Bebas Neue';font-size:24px;letter-spacing:2px;color:var(--bone);margin:18px 0 12px;border-left:3px solid var(--ember);padding-left:10px;}
+
+.pillars{display:flex;flex-direction:column;gap:9px;}
+.pill{display:flex;align-items:stretch;gap:12px;background:var(--carbon);border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;padding:12px 14px;text-align:left;cursor:pointer;transition:.2s;color:var(--bone);}
+.pill:hover{border-color:rgba(201,162,75,.25);}
+.pill-bar{width:3px;border-radius:3px;background:var(--carbon2);flex:none;transition:.3s;}
+.pill-on{background:linear-gradient(90deg, rgba(110,17,20,.35), var(--carbon));border-color:rgba(193,18,31,.5);}
+.pill-on .pill-bar{background:linear-gradient(var(--ember),var(--brass));box-shadow:0 0 10px var(--ember);}
+.pill-text{flex:1;display:flex;flex-direction:column;gap:3px;}
+.pill-label{font-family:'Bebas Neue';font-size:20px;letter-spacing:1px;}
+.pill-hint{font-size:11.5px;color:var(--ash);line-height:1.35;}
+.pill-check{font-family:'Oswald';color:var(--brass);font-size:15px;align-self:center;width:16px;text-align:center;}
+
+.habit-add{display:flex;gap:8px;margin-bottom:10px;}
+.field{flex:1;background:var(--carbon);border:1px solid rgba(255,255,255,.08);border-radius:10px;
+  padding:12px 14px;color:var(--bone);font-family:'Inter';font-size:14px;outline:none;}
+.field:focus{border-color:var(--brass);}
+.btn-add{width:46px;background:var(--ember);border:none;border-radius:10px;color:#fff;font-size:22px;cursor:pointer;}
+.empty{font-size:12px;color:var(--ash);font-style:italic;margin-bottom:8px;}
+.habit{display:flex;align-items:center;gap:12px;background:var(--carbon);border:1px solid rgba(255,255,255,.05);
+  border-radius:10px;padding:11px 12px;margin-bottom:8px;}
+.habit-on{border-color:rgba(193,18,31,.4);}
+.habit-on .habit-name{color:var(--ash);text-decoration:line-through;}
+.habit-tick{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--brass);background:transparent;
+  color:var(--brass);cursor:pointer;flex:none;font-size:13px;}
+.habit-on .habit-tick{background:var(--ember);border-color:var(--ember);color:#fff;}
+.habit-name{flex:1;font-size:14px;}
+.habit-del{background:none;border:none;color:var(--ash);cursor:pointer;font-size:13px;}
+
+.ritual{background:var(--carbon);border:1px solid rgba(201,162,75,.12);border-radius:14px;padding:16px;margin-bottom:16px;}
+.ritual-head-edit{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.ritual-title-btn{flex:1;display:flex;align-items:center;gap:8px;background:transparent;border:none;
+  font-family:'Bebas Neue';font-size:28px;letter-spacing:1px;color:var(--brass);cursor:pointer;
+  text-align:left;padding:2px 0;}
+.edit-pencil{font-size:13px;opacity:.35;}
+.ritual-title-btn:hover .edit-pencil{opacity:.7;}
+.ritual-title-input{flex:1;-webkit-appearance:none;appearance:none;background:transparent;
+  border:none;border-bottom:1px solid var(--brass);
+  font-family:'Bebas Neue';font-size:28px;letter-spacing:1px;color:var(--brass);outline:none;padding:2px 0;}
+.ritual-progress{font-family:'Oswald';font-size:12px;color:var(--ash);letter-spacing:1px;flex:none;}
+.block-del{background:none;border:none;font-size:15px;cursor:pointer;opacity:.5;flex:none;}
+.block-del:hover{opacity:1;}
+.ritual-item{display:flex;align-items:center;gap:12px;width:100%;
+  border-top:1px solid rgba(255,255,255,.05);padding:11px 2px;color:var(--bone);font-size:14px;}
+.ritual-item-label{flex:1;cursor:pointer;}
+.ritual-tick{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--ash);flex:none;color:var(--brass);
+  background:transparent;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;transition:.2s;}
+.ritual-on .ritual-tick{background:var(--ember);border-color:var(--ember);color:#fff;}
+.ritual-on .ritual-item-label{color:var(--ash);text-decoration:line-through;}
+.item-del{background:none;border:none;color:var(--ash);cursor:pointer;font-size:12px;opacity:.6;flex:none;}
+.item-del:hover{opacity:1;color:var(--ember);}
+.ritual-add{display:flex;gap:8px;margin-top:12px;}
+.add-block{width:100%;background:transparent;border:1.5px dashed rgba(201,162,75,.4);color:var(--brass);
+  font-family:'Bebas Neue';font-size:20px;letter-spacing:2px;padding:14px;border-radius:12px;cursor:pointer;transition:.2s;}
+.add-block:hover{background:rgba(201,162,75,.08);border-color:var(--brass);}
+
+.save-btn{width:100%;background:linear-gradient(90deg,var(--oxblood),var(--ember));border:none;color:#fff;
+  font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;padding:14px;border-radius:12px;cursor:pointer;
+  box-shadow:0 6px 20px rgba(193,18,31,.3);}
+.oro{color:var(--brass);}
+.hora{color:var(--ash);font-size:26px;}
+.principio{background:var(--carbon);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--ember);
+  border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.principio-tag{font-family:'Oswald';font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:8px;}
+.principio-text{font-size:16px;line-height:1.45;font-weight:600;color:var(--bone);}
+.sub-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.sub-tab{flex:1;padding:11px 0;border-radius:10px;border:1px solid rgba(201,162,75,.3);background:transparent;
+  color:var(--ash);font-family:'Oswald';font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.sub-on{background:var(--brass);border-color:var(--brass);color:#111;}
+.proto{background:var(--carbon);border:1px solid rgba(255,255,255,.06);border-radius:14px;margin-bottom:11px;overflow:hidden;transition:border-color .2s;}
+.proto-open{border-color:rgba(201,162,75,.5);}
+.proto-head{width:100%;display:flex;align-items:center;gap:14px;padding:15px 16px;background:transparent;border:none;cursor:pointer;text-align:left;}
+.proto-n{font-family:'Bebas Neue';font-size:26px;color:var(--ash);min-width:32px;}
+.proto-open .proto-n{color:var(--brass);}
+.proto-titles{flex:1;display:flex;flex-direction:column;gap:2px;}
+.proto-title{font-family:'Bebas Neue';font-size:21px;letter-spacing:1px;color:var(--bone);}
+.proto-sub{font-family:'Oswald';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);}
+.proto-plus{color:var(--brass);font-size:20px;transition:transform .2s;}
+.proto-plus.rot{transform:rotate(45deg);}
+.proto-body{padding:0 16px 18px;}
+.proto-principio{font-size:15px;line-height:1.5;font-style:italic;color:var(--brass);
+  border-top:1px solid rgba(255,255,255,.06);padding-top:14px;margin-bottom:14px;}
+.proto-idea{display:flex;gap:10px;margin-bottom:11px;font-size:14.5px;line-height:1.45;color:var(--bone);}
+.proto-dash{color:var(--ember);font-weight:700;}
+.proto-accion{margin-top:14px;background:var(--carbon2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px;}
+.proto-accion-tag{font-family:'Oswald';font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--brass);margin-bottom:7px;}
+.consulta{background:var(--carbon);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;margin-bottom:11px;}
+.consulta-fecha{font-family:'Oswald';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-bottom:8px;}
+.consulta-p{font-family:'Bebas Neue';font-size:20px;letter-spacing:.5px;color:var(--brass);line-height:1.2;margin-bottom:10px;}
+.consulta-r{font-size:14.5px;line-height:1.55;color:var(--bone);}
+.consulta-vacia{text-align:center;padding:20px 16px;border:1px dashed rgba(201,162,75,.35);border-radius:14px;
+  color:var(--ash);font-size:13.5px;line-height:1.5;}
+
+.rank-hero{text-align:center;margin:6px 0 18px;}
+.mil-wrap{background:var(--carbon);border:1px solid rgba(201,162,75,.18);border-radius:14px;padding:16px;margin-bottom:16px;}
+.mil-head{display:flex;justify-content:space-between;font-family:'Oswald';font-size:12px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--brass);margin-bottom:10px;}
+.mil-bar{height:10px;background:var(--obsidian);border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.06);}
+.mil-fill{height:100%;background:linear-gradient(90deg,var(--oxblood),var(--ember) 55%,var(--brass));
+  box-shadow:0 0 14px rgba(193,18,31,.5);transition:width .5s ease;}
+.mil-next{font-size:12px;color:var(--ash);margin-top:10px;text-align:center;}
+.mil-next b{color:var(--bone);}
+.rankrow.current{border-color:var(--ember);box-shadow:0 0 0 1px var(--ember) inset;}
+.rankrow.current .rankrow-name{color:var(--bone);}
+.rank-big{font-family:'Bebas Neue';font-size:54px;letter-spacing:2px;color:var(--brass);display:block;line-height:1;
+  text-shadow:0 0 30px rgba(201,162,75,.3);}
+.rank-lvl{font-family:'Oswald';font-size:12px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;}
+.ranklist{display:flex;flex-direction:column;gap:7px;}
+.rankrow{display:flex;justify-content:space-between;align-items:center;background:var(--carbon);
+  border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:12px 14px;opacity:.4;}
+.rankrow.reached{opacity:1;border-color:rgba(201,162,75,.35);
+  background:linear-gradient(90deg,rgba(110,17,20,.25),var(--carbon));}
+.rankrow-name{font-family:'Bebas Neue';font-size:20px;letter-spacing:1px;}
+.rankrow.reached .rankrow-name{color:var(--brass);}
+.rankrow-lvl{font-family:'Oswald';font-size:11px;letter-spacing:2px;color:var(--ash);}
+
+.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;
+  justify-content:center;z-index:20;backdrop-filter:blur(3px);}
+.modal{width:100%;max-width:480px;background:var(--carbon);border-top:2px solid var(--ember);
+  border-radius:20px 20px 0 0;padding:22px 20px 28px;animation:slideup .3s ease;}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:none}}
+.modal-title{font-family:'Bebas Neue';font-size:30px;letter-spacing:1px;margin-bottom:14px;}
+.journal-area{width:100%;min-height:150px;background:var(--obsidian);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:14px;color:var(--bone);font-family:'Inter';font-size:14px;resize:vertical;outline:none;margin-bottom:14px;}
+.journal-area:focus{border-color:var(--brass);}
+
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
+  display:flex;background:rgba(10,10,11,.94);backdrop-filter:blur(10px);border-top:1px solid rgba(201,162,75,.15);z-index:10;}
+.tab{flex:1;padding:16px 0;background:none;border:none;color:var(--ash);cursor:pointer;
+  font-family:'Oswald';font-size:12px;letter-spacing:2px;text-transform:uppercase;position:relative;}
+.tab-on{color:var(--brass);}
+.tab-on::after{content:'';position:absolute;top:0;left:25%;width:50%;height:2px;background:var(--ember);box-shadow:0 0 8px var(--ember);}
+html,body{background:#0A0A0B;}
+</style>
+</head>
+<body>
+<div id="app" class="forja-root"></div>
+<script>
+/* ===================== DATOS ===================== */
+const PILLARS=[
+  {key:"disciplina",label:"Disciplina",hint:"Cumple tu palabra. Gana la mañana."},
+  {key:"estoicismo",label:"Estoicismo",hint:"Lee. Aplica una idea hoy."},
+  {key:"fisico",label:"Físico",hint:"Entrena. Sin negociar."},
+  {key:"imagen",label:"Imagen",hint:"Vístete con intención."},
+  {key:"finanzas",label:"Finanzas",hint:"Controla tu dinero hoy."},
+  {key:"journaling",label:"Journaling",hint:"Escribe. Ordena tu mente."},
+  {key:"mentalidad",label:"Mentalidad",hint:"Aplica el principio del día."}
+];
+const RITUAL_MANANA=["Sin snooze. Pies al piso.","Agua antes que el teléfono.","Movimiento: 5 min mínimo.","Ducha fría.","Define las 3 batallas del día."];
+const RITUAL_TARDE=["Entrenamiento hecho.","Vístete para el turno con intención.","Revisa tu dinero del día.","10 min de journaling.","Una intención antes de entrar a trabajar."];
+const STOIC=[
+  "No controlas lo que pasa. Controlas lo que haces con lo que pasa.",
+  "El obstáculo es el camino. Atraviésalo.",
+  "Hoy alguien te va a molestar. Tu calma es tu poder.",
+  "No te quejes. Actúa o acepta. No hay tercera opción.",
+  "Domínate a ti mismo antes de querer dominar tu día.",
+  "El placer fácil de hoy es la debilidad de mañana. Elige.",
+  "Nadie viene a salvarte. Y está bien: tú te bastas.",
+  "Haz lo difícil ahora para que tu futuro sea fácil."
+];
+const PROTOCOLOS=[
+  {n:"01",titulo:"La Mentalidad",subtitulo:"El sistema operativo",principio:"No vendes horas. Construyes una vez y cobras muchas veces.",ideas:["El que cobra 1000 €/h no trabaja más rápido: resuelve problemas más caros.","Calma, no necesidad. El que persigue aprobación la pierde.","Protege tu tiempo como tu activo más caro. Aprende a decir no sin culpa.","Eres interesante porque construyes, no al revés."],accion:"Hoy: di 'no' a una tarea o petición que no te acerque a tu objetivo. Una sola. Sin justificarte de más."},
+  {n:"02",titulo:"Dinero que trabaja sin ti",subtitulo:"Ingreso recurrente",principio:"Un cobro único te da un día. Un cobro mensual te da libertad.",ideas:["Productiza lo que ya validaste en vez de empezar de cero.","Busca 3 clientes que paguen poco cada mes, no 50 que paguen una vez.","El primer euro que ganas durmiendo te cambia la cabeza para siempre.","Sube el precio a los nuevos, respeta a los fundadores."],accion:"Esta semana: habla con 1 dueño de negocio al día sobre un problema que tu producto resuelve. 5 conversaciones."},
+  {n:"03",titulo:"Presencia y estilo",subtitulo:"El cuerpo habla primero",principio:"La presencia no se actúa: se construye con hábitos aburridos.",ideas:["Postura, sueño y entrenamiento hacen más por tu aura que cualquier ropa.","Menos prendas, mejores prendas, que te queden bien. El corte gana al logo.","Habla más lento. El que tiene prisa parece que necesita algo.","Cuida detalles: piel, manos, olor, zapatos. Se nota en silencio."],accion:"Elige 3 prendas neutras que te queden perfectas y conviértelas en tu uniforme. Deja de improvisar cada mañana."},
+  {n:"04",titulo:"Carisma real",subtitulo:"Sin máscara",principio:"El carisma es seguridad más atención genuina, no un truco.",ideas:["Escucha más de lo que hablas. La gente recuerda cómo la hiciste sentir.","Ten estándares. El que acepta todo no vale para nadie.","El humor nace de la calma, no de buscar aprobación.","Con gente inteligente: la curiosidad real gana a impresionar."],accion:"En tu próxima conversación importante: haz 3 preguntas antes de dar tu primera opinión."},
+  {n:"05",titulo:"Mente sin miedo",subtitulo:"Disciplina estoica",principio:"El miedo es una brújula: señala dónde está tu crecimiento.",ideas:["Separa lo que controlas de lo que no. Gasta energía solo en lo primero.","Decide rápido en lo reversible. Piensa despacio solo en lo irreversible.","La disciplina es libertad: menos decisiones, más dirección.","Haz reps de incomodidad. El valor se entrena, no se espera."],accion:"Hoy haz una cosa que te dé algo de miedo y sea reversible: envía el mensaje, haz la llamada, pide el precio."}
+];
+const CONSULTAS=[
+  {p:"¿Subo la app a Google Play o App Store para atraer más gente?",r:"Ahora no. Nadie descubre una app de stock buscando en las tiendas; tu canal real eres tú hablando con dueños de bares. Un link web funciona igual en iPhone y Android, coste 0, y lo actualizas al instante. Hazlo PWA instalable (icono en la pantalla de inicio) y guarda las tiendas para cuando tus apps de consumidor estén listas para escalar.",fecha:"Consulta guardada"},
+  {p:"¿Cómo consigo mi primer ingreso recurrente en 90 días?",r:"Productiza algo que ya construiste. Días 1–30: convertirlo en producto para cualquier cliente con un cobro mensual simple. Días 31–60: consigue 3 clientes fundadores pagando poco cada mes. Días 61–90: pule con su feedback, sube el precio a los nuevos, llega a 5–8. El objetivo no es hacerte rico: es tener gente pagándote cada mes por primera vez.",fecha:"Consulta guardada"}
+];
+const RANKS=[
+  {min:0,name:"Hierro Frío",note:"El comienzo"},{min:1,name:"Chispa",note:"Día 1 — encendiste"},{min:3,name:"Brasa",note:"3 días"},{min:7,name:"Llama",note:"1 semana"},{min:14,name:"Fragua",note:"2 semanas"},{min:30,name:"Forjado",note:"1 mes"},{min:60,name:"Yunque",note:"2 meses"},{min:90,name:"Acero",note:"3 meses"},{min:120,name:"Acero Templado",note:"4 meses"},{min:150,name:"Filo",note:"5 meses"},{min:180,name:"Espada",note:"medio año"},{min:210,name:"Guerrero",note:"7 meses"},{min:240,name:"Centurión",note:"8 meses"},{min:270,name:"Gladiador",note:"9 meses"},{min:300,name:"Indómito",note:"10 meses"},{min:330,name:"Coloso",note:"11 meses"},{min:365,name:"Titán",note:"1 año entero"},{min:450,name:"Leyenda",note:""},{min:550,name:"Inmortal",note:""},{min:650,name:"Monarca",note:""},{min:750,name:"Emperador",note:""},{min:850,name:"Semidiós",note:""},{min:950,name:"Mito",note:"casi imposible"},{min:1000,name:"La Cabra 🐐",note:"Nivel Messi — el GOAT"}
+];
+
+/* ===================== HELPERS ===================== */
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function dayKey(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+function todayStr(){return dayKey();}
+function yesterdayStr(){const d=new Date();d.setDate(d.getDate()-1);return dayKey(d);}
+function rankFor(streak){let r=RANKS[0];for(const rk of RANKS){if(streak>=rk.min)r=rk;}return r;}
+const stoicIdx=new Date().getDate()%STOIC.length;
+const principioIdx=new Date().getDate()%PROTOCOLOS.length;
+
+/* ===================== ESTADO ===================== */
+function freshPillars(){const o={};PILLARS.forEach(p=>o[p.key]=false);return o;}
+function defaultState(){return{
+  tab:"hoy",escuelaTab:"protocolos",abierto:0,editingBlock:null,journalOpen:false,
+  pillars:freshPillars(),habits:[],
+  rituals:[
+    {id:1,title:"Mañana",items:RITUAL_MANANA.map((l,i)=>({id:i+1,label:l,done:false}))},
+    {id:2,title:"Tarde",items:RITUAL_TARDE.map((l,i)=>({id:100+i,label:l,done:false}))}
+  ],
+  journal:"",xp:0,streak:0,lastComplete:"",lastDay:todayStr()
+};}
+let state;
+try{const s=localStorage.getItem("forja_state");state=s?Object.assign(defaultState(),JSON.parse(s)):defaultState();}catch(e){state=defaultState();}
+state.editingBlock=null;state.journalOpen=false;
+function save(){try{localStorage.setItem("forja_state",JSON.stringify(state));}catch(e){}}
+
+/* Reseteo diario */
+(function(){const t=todayStr();if(state.lastDay!==t){if(state.lastComplete!==yesterdayStr()&&state.lastComplete!==t)state.streak=0;state.pillars=freshPillars();state.habits.forEach(h=>h.done=false);state.rituals.forEach(b=>b.items.forEach(it=>it.done=false));state.journal="";state.lastDay=t;save();}})();
+
+/* ===================== LÓGICA ===================== */
+function addXp(n){state.xp=Math.max(0,state.xp+n);}
+function checkStreak(){const done=PILLARS.filter(p=>state.pillars[p.key]).length;const t=todayStr();if(done===PILLARS.length&&state.lastComplete!==t){state.streak=(state.lastComplete===yesterdayStr()?state.streak+1:1);state.lastComplete=t;}}
+function togglePillar(key){if(key==="journaling"){state.journalOpen=true;renderAll();return;}const nv=!state.pillars[key];state.pillars[key]=nv;addXp(nv?10:-10);if(nv)checkStreak();save();renderAll();}
+function addHabit(){const inp=document.getElementById("habit-input");if(!inp)return;const v=inp.value.trim();if(!v)return;state.habits.push({id:Date.now(),name:v,done:false});focusId="habit-input";save();renderAll();}
+function toggleHabit(id){const h=state.habits.find(x=>x.id===id);if(!h)return;h.done=!h.done;addXp(h.done?8:-8);save();renderAll();}
+function toggleRitual(bid,iid){const b=state.rituals.find(x=>x.id===bid);if(!b)return;const it=b.items.find(x=>x.id===iid);if(!it)return;it.done=!it.done;addXp(it.done?5:-5);save();renderAll();}
+function delRitualItem(bid,iid){const b=state.rituals.find(x=>x.id===bid);if(!b)return;b.items=b.items.filter(x=>x.id!==iid);save();renderAll();}
+function addRitualItem(bid){const inp=document.getElementById("ritual-input-"+bid);if(!inp)return;const v=inp.value.trim();if(!v)return;const b=state.rituals.find(x=>x.id===bid);if(!b)return;b.items.push({id:Date.now(),label:v,done:false});focusId="ritual-input-"+bid;save();renderAll();}
+function saveJournal(){const ta=document.getElementById("journal-area");if(ta)state.journal=ta.value;if(state.journal.trim()&&!state.pillars.journaling){state.pillars.journaling=true;addXp(15);checkStreak();}state.journalOpen=false;save();renderAll();}
+function closeJournal(){const ta=document.getElementById("journal-area");if(ta)state.journal=ta.value;state.journalOpen=false;save();renderAll();}
+
+/* ===================== RENDER ===================== */
+let focusId=null;
+function fecha(){return new Date().toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();}
+function stat(label,value){return '<div class="stat"><div class="stat-value">'+value+'</div><div class="stat-label">'+esc(label)+'</div></div>';}
+
+function screenHoy(){
+  const done=PILLARS.filter(p=>state.pillars[p.key]).length;
+  const intensity=done/PILLARS.length;
+  const emberOuter="box-shadow:0 0 "+(20+intensity*90)+"px "+(6+intensity*40)+"px rgba(193,18,31,"+(0.15+intensity*0.55).toFixed(3)+");";
+  const emberInner="background:radial-gradient(circle at 50% 42%, rgba(255,240,200,"+intensity+") 0%, rgba(201,162,75,"+(0.2+intensity*0.8)+") "+(8+intensity*22)+"%, rgba(193,18,31,"+(0.35+intensity*0.5)+") "+(30+intensity*25)+"%, rgba(110,17,20,0.5) 62%, #1b0c0d 78%, #0c0708 100%);transform:scale("+(0.94+intensity*0.1)+");";
+  const level=Math.floor(state.xp/100)+1;
+  return '<section class="fade"><p class="eyebrow">'+fecha()+'</p><h1 class="hero">LEVÁNTATE.<br>FÓRJATE.</h1>'
+    +'<div class="forge-wrap"><div class="ember-outer" style="'+emberOuter+'"><div class="ember" style="'+emberInner+'"></div><div class="ember-core"><div class="ember-count">'+done+'/7</div><div class="ember-label">pilares</div></div></div>'
+    +'<p class="forge-caption">'+(done===7?"Hierro al rojo vivo. Hoy te forjaste.":done===0?"Hierro frío. Enciéndete.":"La brasa crece. No pares.")+'</p></div>'
+    +'<div class="stats">'+stat("Nivel",level)+stat("Racha",state.streak+"🔥")+stat("XP",state.xp)+'</div>'
+    +'<div class="xpbar"><div class="xpbar-fill" style="width:'+(state.xp%100)+'%"></div></div>'
+    +'<h2 class="section-title">Pilares de hoy</h2><div class="pillars">'
+    +PILLARS.map(p=>{const on=state.pillars[p.key];const hint=p.key==="estoicismo"?STOIC[stoicIdx]:p.hint;return '<button class="pill '+(on?"pill-on":"")+'" data-action="pillar" data-key="'+p.key+'"><span class="pill-bar"></span><span class="pill-text"><span class="pill-label">'+esc(p.label)+'</span><span class="pill-hint">'+esc(hint)+'</span></span><span class="pill-check">'+(on?"✕":"")+'</span></button>';}).join("")
+    +'</div><h2 class="section-title">Tus objetivos</h2>'
+    +'<div class="habit-add"><input class="field" id="habit-input" placeholder="Añade un objetivo diario…"><button class="btn-add" data-action="add-habit">+</button></div>'
+    +(state.habits.length===0?'<p class="empty">Sin objetivos aún. Define uno y cúmplelo.</p>':"")
+    +state.habits.map(h=>'<div class="habit '+(h.done?"habit-on":"")+'"><button class="habit-tick" data-action="toggle-habit" data-id="'+h.id+'">'+(h.done?"✕":"")+'</button><span class="habit-name">'+esc(h.name)+'</span><button class="habit-del" data-action="del-habit" data-id="'+h.id+'">✕</button></div>').join("")
+    +'</section>';
+}
+function screenRituales(){
+  return '<section class="fade"><p class="eyebrow">Estructura · tú la defines</p><h1 class="hero-sm">RITUALES</h1>'
+    +state.rituals.map(b=>{
+      const done=b.items.filter(i=>i.done).length;
+      const titleHTML=state.editingBlock===b.id
+        ?'<input class="ritual-title-input" id="rename-'+b.id+'" data-action="rename-input" data-bid="'+b.id+'" value="'+esc(b.title)+'">'
+        :'<button class="ritual-title-btn" data-action="edit-title" data-bid="'+b.id+'">'+esc(b.title||"Sin nombre")+'<span class="edit-pencil">✎</span></button>';
+      return '<div class="ritual"><div class="ritual-head-edit">'+titleHTML+'<span class="ritual-progress">'+done+'/'+b.items.length+'</span><button class="block-del" data-action="del-block" data-bid="'+b.id+'">🗑</button></div>'
+        +b.items.map(it=>'<div class="ritual-item '+(it.done?"ritual-on":"")+'"><button class="ritual-tick" data-action="toggle-ritual" data-bid="'+b.id+'" data-iid="'+it.id+'">'+(it.done?"✕":"")+'</button><span class="ritual-item-label" data-action="toggle-ritual" data-bid="'+b.id+'" data-iid="'+it.id+'">'+esc(it.label)+'</span><button class="item-del" data-action="del-ritual-item" data-bid="'+b.id+'" data-iid="'+it.id+'">✕</button></div>').join("")
+        +'<div class="ritual-add"><input class="field" id="ritual-input-'+b.id+'" placeholder="Añade un paso…"><button class="btn-add" data-action="add-ritual-item" data-bid="'+b.id+'">+</button></div></div>';
+    }).join("")
+    +'<button class="add-block" data-action="add-block">+ Nuevo ritual</button></section>';
+}
+function screenEscuela(){
+  let inner;
+  if(state.escuelaTab==="protocolos"){
+    inner=PROTOCOLOS.map((p,i)=>{const open=state.abierto===i;return '<div class="proto '+(open?"proto-open":"")+'"><button class="proto-head" data-action="proto" data-i="'+i+'"><span class="proto-n">'+p.n+'</span><span class="proto-titles"><span class="proto-title">'+esc(p.titulo)+'</span><span class="proto-sub">'+esc(p.subtitulo)+'</span></span><span class="proto-plus '+(open?"rot":"")+'">+</span></button>'+(open?'<div class="proto-body"><p class="proto-principio">“'+esc(p.principio)+'”</p>'+p.ideas.map(idea=>'<div class="proto-idea"><span class="proto-dash">—</span><span>'+esc(idea)+'</span></div>').join("")+'<div class="proto-accion"><div class="proto-accion-tag">Acción</div><div>'+esc(p.accion)+'</div></div></div>':"")+'</div>';}).join("");
+  }else{
+    inner=CONSULTAS.map(c=>'<div class="consulta"><div class="consulta-fecha">'+esc(c.fecha)+'</div><div class="consulta-p">'+esc(c.p)+'</div><div class="consulta-r">'+esc(c.r)+'</div></div>').join("")+'<div class="consulta-vacia">¿Nueva duda? Pregúntamela en el chat y te doy el texto listo para pegar aquí como una consulta más.</div>';
+  }
+  return '<section class="fade"><p class="eyebrow">La escuela</p><h1 class="hero-sm">HOMBRE DE <span class="oro">1000&nbsp;€</span><span class="hora"> / hora</span></h1>'
+    +'<div class="principio"><div class="principio-tag">Principio del día</div><div class="principio-text">'+esc(PROTOCOLOS[principioIdx].principio)+'</div></div>'
+    +'<div class="sub-tabs"><button class="sub-tab '+(state.escuelaTab==="protocolos"?"sub-on":"")+'" data-action="escuela-tab" data-id="protocolos">Protocolos</button><button class="sub-tab '+(state.escuelaTab==="consultas"?"sub-on":"")+'" data-action="escuela-tab" data-id="consultas">Consultas</button></div>'
+    +inner+'</section>';
+}
+function screenForja(){
+  const level=Math.floor(state.xp/100)+1;
+  const rank=rankFor(state.streak);
+  const nextRank=RANKS.find(r=>r.min>state.streak);
+  const toNext=nextRank?nextRank.min-state.streak:0;
+  const milPct=Math.min(100,(state.streak/1000)*100);
+  return '<section class="fade"><p class="eyebrow">Tu progreso</p><h1 class="hero-sm">LA FORJA</h1>'
+    +'<div class="rank-hero"><span class="rank-big">'+esc(rank.name)+'</span><span class="rank-lvl">Día '+state.streak+' de 1000'+(rank.note?" · "+esc(rank.note):"")+'</span></div>'
+    +'<div class="mil-wrap"><div class="mil-head"><span>Camino a La Cabra 🐐</span><span>'+milPct.toFixed(1)+'%</span></div><div class="mil-bar"><div class="mil-fill" style="width:'+milPct+'%"></div></div>'
+    +(nextRank?'<p class="mil-next">'+toNext+' '+(toNext===1?"día":"días")+' para <b>'+esc(nextRank.name)+'</b></p>':'<p class="mil-next">Eres el GOAT. Nadie te alcanza. 🐐</p>')+'</div>'
+    +'<div class="stats">'+stat("Racha",state.streak+"🔥")+stat("XP total",state.xp)+stat("Nivel",level)+'</div>'
+    +'<h2 class="section-title">Escalafón</h2><div class="ranklist">'
+    +RANKS.map(r=>'<div class="rankrow '+(state.streak>=r.min?"reached ":"")+(rank.name===r.name?"current":"")+'"><span class="rankrow-name">'+esc(r.name)+'</span><span class="rankrow-lvl">Día '+r.min+'</span></div>').join("")
+    +'</div></section>';
+}
+function topbar(){const rank=rankFor(state.streak);return '<header class="topbar"><div class="brand">FORJA</div><div class="rankchip"><span class="rank-eyebrow">Rango</span><span class="rank-name">'+esc(rank.name)+'</span></div></header>';}
+function nav(){return '<nav class="tabbar">'+[["hoy","Hoy"],["rituales","Rituales"],["escuela","Escuela"],["forja","Forja"]].map(t=>'<button class="tab '+(state.tab===t[0]?"tab-on":"")+'" data-action="tab" data-tab="'+t[0]+'">'+t[1]+'</button>').join("")+'</nav>';}
+function modal(){if(!state.journalOpen)return "";return '<div class="modal-back"><div class="modal"><p class="eyebrow">Journaling</p><h3 class="modal-title">Ordena tu mente</h3><textarea class="journal-area" id="journal-area" placeholder="¿Qué pasó hoy? ¿Qué controlaste? ¿Qué vas a mejorar mañana?">'+esc(state.journal)+'</textarea><button class="save-btn" data-action="save-journal">Guardar y marcar</button></div></div>';}
+function screen(){if(state.tab==="hoy")return screenHoy();if(state.tab==="rituales")return screenRituales();if(state.tab==="escuela")return screenEscuela();return screenForja();}
+function renderAll(){
+  document.getElementById("app").innerHTML=topbar()+'<main class="screen">'+screen()+'</main>'+nav()+modal();
+  if(focusId){const el=document.getElementById(focusId);if(el){el.focus();try{const v=el.value;el.value="";el.value=v;}catch(e){}}focusId=null;}
+}
+
+/* ===================== EVENTOS ===================== */
+document.addEventListener("click",function(e){
+  if(e.target.classList&&e.target.classList.contains("modal-back")){closeJournal();return;}
+  const el=e.target.closest("[data-action]");if(!el)return;
+  const a=el.dataset.action;
+  if(a==="tab"){state.tab=el.dataset.tab;renderAll();}
+  else if(a==="pillar"){togglePillar(el.dataset.key);}
+  else if(a==="add-habit"){addHabit();}
+  else if(a==="toggle-habit"){toggleHabit(+el.dataset.id);}
+  else if(a==="del-habit"){state.habits=state.habits.filter(h=>String(h.id)!==el.dataset.id);save();renderAll();}
+  else if(a==="edit-title"){state.editingBlock=+el.dataset.bid;focusId="rename-"+el.dataset.bid;renderAll();}
+  else if(a==="toggle-ritual"){toggleRitual(+el.dataset.bid,+el.dataset.iid);}
+  else if(a==="del-ritual-item"){delRitualItem(+el.dataset.bid,+el.dataset.iid);}
+  else if(a==="add-ritual-item"){addRitualItem(+el.dataset.bid);}
+  else if(a==="del-block"){state.rituals=state.rituals.filter(b=>String(b.id)!==el.dataset.bid);save();renderAll();}
+  else if(a==="add-block"){state.rituals.push({id:Date.now(),title:"Nuevo ritual",items:[]});save();renderAll();}
+  else if(a==="escuela-tab"){state.escuelaTab=el.dataset.id;renderAll();}
+  else if(a==="proto"){const i=+el.dataset.i;state.abierto=state.abierto===i?-1:i;renderAll();}
+  else if(a==="save-journal"){saveJournal();}
+});
+document.addEventListener("keydown",function(e){
+  if(e.key!=="Enter")return;
+  const id=e.target.id||"";
+  if(id==="habit-input"){e.preventDefault();addHabit();}
+  else if(id.indexOf("ritual-input-")===0){e.preventDefault();addRitualItem(+id.replace("ritual-input-",""));}
+  else if(id.indexOf("rename-")===0){e.preventDefault();e.target.blur();}
+});
+document.addEventListener("focusout",function(e){
+  if(e.target&&e.target.dataset&&e.target.dataset.action==="rename-input"){
+    const bid=+e.target.dataset.bid;const val=e.target.value.trim()||"Sin nombre";
+    const b=state.rituals.find(x=>x.id===bid);if(b)b.title=val;
+    state.editingBlock=null;save();renderAll();
+  }
+});
+
+renderAll();
+
+</script>
+</body>
+</html>
