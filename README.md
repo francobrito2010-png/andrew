@@ -4,7 +4,7 @@ Experiência tipo "seleção de carro" de videojogo para o stand **Daniel Pinho 
 Um único `index.html` (HTML + CSS + JS vanilla), sem build, pronto para GitHub Pages.
 
 ```
-showroom/
+andrew/
 ├── index.html   ← tudo (cena, swipe, transição, painel, CTA)
 ├── cars.json    ← dados dos carros (se falhar o fetch, usa a cópia dentro do JS)
 └── cars/        ← imagens sem fundo (WebP com transparência) + pastas com 36 frames para 360°
@@ -47,6 +47,6 @@ Se um carro tiver `"frames": ["cars/bmw/01.png", …]` (24–36 imagens tiradas 
 
 ## Publicar no GitHub Pages
 
-Settings → Pages → Deploy from branch → escolher o branch e a pasta raiz. O showroom fica em `https://<utilizador>.github.io/<repo>/showroom/`.
+Settings → Pages → Deploy from branch → escolher o branch e a pasta raiz. O showroom fica em `https://francobrito2010-png.github.io/andrew/`.
 
-Para testar localmente (o `fetch` precisa de servidor): `python3 -m http.server` dentro de `showroom/`.
+Para testar localmente (o `fetch` precisa de servidor): `python3 -m http.server` na raiz do repositório.
