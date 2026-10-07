@@ -142,7 +142,7 @@ img{display:block;max-width:100%}
   position:absolute;left:50%;
   width:calc(var(--car-w) * 1.04);aspect-ratio:1;
   margin-left:calc(var(--car-w) * -.52);
-  bottom:calc(var(--floor-y) - var(--car-w) * .52);
+  bottom:calc(var(--floor-y) - var(--car-w) * .47);   /* compensa a perspetiva: o carro assenta no centro do disco */
   perspective:calc(var(--car-w) * 2.2);
   pointer-events:none;z-index:0;
 }
@@ -217,7 +217,9 @@ img{display:block;max-width:100%}
   background:rgba(20,20,23,.6);border:1px solid rgba(255,255,255,.14);
 }
 .btn360 small{font-size:10px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
-.btn360[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn360.is-live{border-color:rgba(232,184,74,.7);box-shadow:0 0 0 0 rgba(232,184,74,.5);animation:pulse360 2.4s ease-out infinite}
+@keyframes pulse360{0%{box-shadow:0 0 0 0 rgba(232,184,74,.45)}70%,100%{box-shadow:0 0 0 10px rgba(232,184,74,0)}}
+.btn360[aria-pressed="true"]{animation:none;background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn360[aria-pressed="true"] small{color:var(--accent-ink)}
 .hint{
   position:absolute;left:50%;bottom:10px;z-index:6;transform:translateX(-50%);
@@ -534,13 +536,14 @@ const STAND = {
 };
 
 // Cópia de cars.json — usada se o fetch falhar (ex.: abrir o ficheiro em file://)
+const seq = dir => Array.from({length:36}, (_, i) => `cars/${dir}/${String(i).padStart(2, '0')}.webp`);
 const FALLBACK_CARS = [
-  {id:'mercedes-c220d-2021',marca:'Mercedes-Benz',modelo:'C 220 d AMG Line',ano:2021,km:68000,combustivel:'Gasóleo',caixa:'Automática',potencia_cv:200,preco:37900,imagem:'cars/mercedes-c220d.png',cor:'#9aa3ad',frames:[],demo:true},
-  {id:'bmw-320d-2020',marca:'BMW',modelo:'320d Touring Pack M',ano:2020,km:92000,combustivel:'Gasóleo',caixa:'Automática',potencia_cv:190,preco:31500,imagem:'cars/bmw-320d.png',cor:'#24467f',frames:[],demo:true},
-  {id:'vw-golf-gti-2021',marca:'Volkswagen',modelo:'Golf GTI',ano:2021,km:54000,combustivel:'Gasolina',caixa:'Automática',potencia_cv:245,preco:36900,imagem:'cars/vw-golf-gti.png',cor:'#b3141c',frames:[],demo:true},
-  {id:'audi-a3-2022',marca:'Audi',modelo:'A3 Sportback S line',ano:2022,km:41000,combustivel:'Gasolina',caixa:'Automática',potencia_cv:150,preco:32900,imagem:'cars/audi-a3.png',cor:'#e4e5e7',frames:[],demo:true},
-  {id:'tesla-model3-2022',marca:'Tesla',modelo:'Model 3 Long Range',ano:2022,km:47000,combustivel:'Elétrico',caixa:'Automática',potencia_cv:440,preco:33900,imagem:'cars/tesla-model3.png',cor:'#3b4250',frames:[],demo:true},
-  {id:'peugeot-3008-2021',marca:'Peugeot',modelo:'3008 GT BlueHDi',ano:2021,km:79000,combustivel:'Gasóleo',caixa:'Automática',potencia_cv:130,preco:25900,imagem:'cars/peugeot-3008.png',cor:'#6b7078',frames:[],demo:true}
+  {id:'ferrari-458-spider-rosso',marca:'Ferrari',modelo:'458 Spider',ano:2014,km:21500,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:214900,imagem:'cars/ferrari-458-rosso.webp',cor:'#a50f12',frames:seq('ferrari-458-rosso'),demo:true},
+  {id:'concept-gt-arancio',marca:'Concept',modelo:'GT Coupé',ano:2025,km:900,combustivel:'Elétrico',caixa:'Automática',potencia_cv:680,preco:249900,imagem:'cars/concept-gt-arancio.webp',cor:'#d9520f',frames:seq('concept-gt-arancio'),demo:true},
+  {id:'ferrari-458-spider-giallo',marca:'Ferrari',modelo:'458 Spider',ano:2013,km:28900,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:199900,imagem:'cars/ferrari-458-giallo.webp',cor:'#e3a90a',frames:[],demo:true},
+  {id:'ferrari-458-spider-blu',marca:'Ferrari',modelo:'458 Spider',ano:2015,km:16200,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:229900,imagem:'cars/ferrari-458-blu.webp',cor:'#16306e',frames:[],demo:true},
+  {id:'concept-gt-grigio',marca:'Concept',modelo:'GT Coupé',ano:2025,km:1500,combustivel:'Elétrico',caixa:'Automática',potencia_cv:680,preco:239900,imagem:'cars/concept-gt-grigio.webp',cor:'#4a4e55',frames:[],demo:true},
+  {id:'ferrari-458-spider-bianco',marca:'Ferrari',modelo:'458 Spider',ano:2014,km:24800,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:209900,imagem:'cars/ferrari-458-bianco.webp',cor:'#e9e9e6',frames:[],demo:true}
 ];
 
 const $ = id => document.getElementById(id);
@@ -881,6 +884,7 @@ function update360(car){
   const has = Array.isArray(car.frames) && car.frames.length > 1;
   $('btn360tag').textContent = has ? '' : 'Em breve';
   $('btn360tag').hidden = has;
+  $('btn360').classList.toggle('is-live', has && !reduced);
   $('btn360').setAttribute('aria-label', has ? 'Ativar vista 360 graus' : 'Vista 360 graus (em breve)');
 }
 function setMode360(on){
@@ -898,13 +902,34 @@ function scrub360(dx){
   const i = ((drag.f0 - Math.round(dx / step)) % n + n) % n;
   if(i !== frame){ frame = i; setCarImage(carActive, f[i], fullName(cars[idx])); }
 }
+// Ao ativar: uma volta completa automática (mostra que é 360° de verdade)
+function autoSpin(car){
+  if(reduced) return;
+  const n = car.frames.length, t0 = performance.now(), dur = 2200;
+  const step = t => {
+    if(!mode360 || cars[idx] !== car || drag) return;
+    const p = Math.min(1, (t - t0) / dur), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    const i = Math.round(e * n) % n;
+    if(i !== frame){ frame = i; setCarImage(carActive, car.frames[i], fullName(car)); }
+    if(p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
 $('btn360').addEventListener('click', () => {
   const car = cars[idx];
   if(!(car.frames && car.frames.length > 1)){ toast('Vista 360° em breve'); return; }
   if(mode360){ setMode360(false); return; }
-  car.frames.forEach(s => { const im = new Image(); im.src = s; }); // pré-carga dos frames
-  frame = 0; setMode360(true); setCarImage(carActive, car.frames[0], fullName(car));
-  toast('Arraste sobre o carro para o rodar');
+  if(busy) return;
+  busy = true;
+  if(!car._framesReady) toast('A carregar vista 360°…');
+  car._framesReady = car._framesReady || Promise.all(car.frames.map(s => loadImg(s).catch(() => {}))); // pré-carga dos frames
+  car._framesReady.then(() => {
+    busy = false;
+    if(cars[idx] !== car) return;
+    frame = 0; setMode360(true); setCarImage(carActive, car.frames[0], fullName(car));
+    autoSpin(car);
+    toast('Arraste sobre o carro para o rodar');
+  });
 });
 
 /* Menu móvel + diálogo */
