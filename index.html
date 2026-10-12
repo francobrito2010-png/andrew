@@ -235,6 +235,7 @@ img{display:block;max-width:100%}
 .panel-head{display:flex;flex-direction:column;gap:10px}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
 .title{font-size:clamp(26px,7vw,44px);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin-top:6px}
+.year-chip:empty{display:none}
 .year-chip{display:inline-block;vertical-align:middle;margin-left:8px;padding:3px 9px;border:1px solid var(--line);border-radius:99px;font-size:13px;font-weight:600;color:#cfcac0;letter-spacing:0;transform:translateY(-4px)}
 .price-label{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .price{display:block;font-size:clamp(30px,8.5vw,48px);font-weight:800;color:var(--accent);letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
@@ -538,6 +539,7 @@ const STAND = {
 // Cópia de cars.json — usada se o fetch falhar (ex.: abrir o ficheiro em file://)
 const seq = dir => Array.from({length:36}, (_, i) => `cars/${dir}/${String(i).padStart(2, '0')}.webp`);
 const FALLBACK_CARS = [
+  {id:'aston-martin-vantage-roadster',marca:'Aston Martin',modelo:'Vantage Roadster',ano:null,km:null,combustivel:'Gasolina',caixa:'Automática',potencia_cv:510,preco:null,imagem:'cars/aston-vantage-roadster.webp',cor:'#1b2236',frames:[1,4,5,6,3,2].map(i => `cars/aston-vantage-roadster/${i}.webp`),demo:false},
   {id:'ferrari-458-spider-rosso',marca:'Ferrari',modelo:'458 Spider',ano:2014,km:21500,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:214900,imagem:'cars/ferrari-458-rosso.webp',cor:'#a50f12',frames:seq('ferrari-458-rosso'),demo:true},
   {id:'concept-gt-arancio',marca:'Concept',modelo:'GT Coupé',ano:2025,km:900,combustivel:'Elétrico',caixa:'Automática',potencia_cv:680,preco:249900,imagem:'cars/concept-gt-arancio.webp',cor:'#d9520f',frames:seq('concept-gt-arancio'),demo:true},
   {id:'ferrari-458-spider-giallo',marca:'Ferrari',modelo:'458 Spider',ano:2013,km:28900,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:199900,imagem:'cars/ferrari-458-giallo.webp',cor:'#e3a90a',frames:[],demo:true},
@@ -555,10 +557,12 @@ let mode360 = false, frame = 0;
 
 const mod = i => ((i % cars.length) + cars.length) % cars.length;
 const thousands = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-const fmtPrice = n => '€ ' + thousands(n);
-const fmtKm = n => thousands(n) + ' km';
+const has = v => v !== null && v !== undefined && v !== '';
+const fmtPrice = n => has(n) ? '€ ' + thousands(n) : 'Sob consulta';
+const fmtKm = n => has(n) ? thousands(n) + ' km' : '—';
 const fmtCv = n => Math.round(n) + ' cv';
 const fullName = c => `${c.marca} ${c.modelo}`;
+const nameYear = c => fullName(c) + (has(c.ano) ? ' ' + c.ano : '');
 
 async function loadCars(){
   try{
@@ -644,6 +648,8 @@ function kickPlatform(dir){
 let shown = null; // carro atualmente mostrado no painel (para contar a partir dele)
 function countTo(el, from, to, fmt, dur = 750){
   cancelAnimationFrame(el._raf);
+  if(!has(to)){ el.textContent = fmt(null); return; }
+  if(!has(from)) from = 0;
   if(reduced || from === to){ el.textContent = fmt(to); return; }
   const t0 = performance.now();
   const step = t => {
@@ -654,18 +660,19 @@ function countTo(el, from, to, fmt, dur = 750){
   el._raf = requestAnimationFrame(step);
 }
 function renderPanel(car){
-  const prev = shown || {preco: 0, km: 0, potencia_cv: 0, ano: car.ano - 10};
+  const prev = shown || {preco: 0, km: 0, potencia_cv: 0, ano: has(car.ano) ? car.ano - 10 : 0};
   $('pMarca').textContent = car.marca;
   $('pModelo').textContent = car.modelo;
-  $('pAnoChip').textContent = car.ano;
+  $('pAnoChip').textContent = has(car.ano) ? car.ano : '';
+  $('pAnoChip').hidden = !has(car.ano);
   $('sComb').textContent = car.combustivel;
   $('sCaixa').textContent = car.caixa;
   countTo($('pPreco'), prev.preco, car.preco, fmtPrice, 900);
   countTo($('sKm'), prev.km, car.km, fmtKm);
   countTo($('sPot'), prev.potencia_cv, car.potencia_cv, fmtCv);
-  countTo($('sAno'), prev.ano, car.ano, n => String(Math.round(n)));
+  countTo($('sAno'), prev.ano, car.ano, n => has(n) ? String(Math.round(n)) : '—');
   document.querySelectorAll('.fx').forEach(el => { el.classList.remove('fx-in'); void el.offsetWidth; el.classList.add('fx-in'); });
-  $('live').textContent = `${fullName(car)}, ${car.ano}, ${fmtPrice(car.preco)}`;
+  $('live').textContent = `${nameYear(car)}, ${fmtPrice(car.preco)}`;
   $('counter').innerHTML = `<b>${String(mod(cars.indexOf(car)) + 1).padStart(2, '0')}</b> / ${String(cars.length).padStart(2, '0')}`;
   shown = car;
   updateCTA(car);
@@ -678,7 +685,8 @@ function renderPanel(car){
    ========================================================= */
 const waLink = text => `https://wa.me/${STAND.whatsapp}?text=${encodeURIComponent(text)}`;
 function updateCTA(car){
-  $('ctaVisit').href = waLink(`Olá! Tenho interesse no ${fullName(car)} ${car.ano} por ${fmtPrice(car.preco)}. Posso agendar uma visita?`);
+  const preco = has(car.preco) ? ` por ${fmtPrice(car.preco)}` : '';
+  $('ctaVisit').href = waLink(`Olá! Tenho interesse no ${nameYear(car)}${preco}. Posso agendar uma visita?`);
   $('ctaVisit').setAttribute('aria-label', `Agendar visita para ver o ${fullName(car)} por WhatsApp`);
 }
 function setupContacts(){
@@ -704,14 +712,14 @@ function buildThumbs(){
   cars.forEach((car, i) => {
     const b = document.createElement('button');
     b.className = 'thumb'; b.type = 'button';
-    b.setAttribute('aria-label', `${fullName(car)} ${car.ano}, ${fmtPrice(car.preco)}`);
+    b.setAttribute('aria-label', `${nameYear(car)}, ${fmtPrice(car.preco)}`);
     b.innerHTML = `<img alt="" src="${silhouette(car.cor)}"><b>${car.marca} ${car.modelo}</b><span>${fmtPrice(car.preco)}</span>`;
     b.addEventListener('click', () => jumpTo(i));
     track.appendChild(b);
 
     const c = document.createElement('button');
     c.className = 'card'; c.type = 'button';
-    c.innerHTML = `<img alt="" src="${silhouette(car.cor)}"><b>${fullName(car)}</b><small>${car.ano} · ${fmtKm(car.km)} · ${car.combustivel}</small><span>${fmtPrice(car.preco)}</span>`;
+    c.innerHTML = `<img alt="" src="${silhouette(car.cor)}"><b>${fullName(car)}</b><small>${[car.ano, has(car.km) ? fmtKm(car.km) : null, car.combustivel].filter(has).join(' · ')}</small><span>${fmtPrice(car.preco)}</span>`;
     c.addEventListener('click', () => { $('allDialog').close(); jumpTo(i); stage.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'}); });
     grid.appendChild(c);
 

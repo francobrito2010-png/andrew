@@ -1,5 +1,20 @@
 [
   {
+    "id": "aston-martin-vantage-roadster",
+    "marca": "Aston Martin",
+    "modelo": "Vantage Roadster",
+    "ano": null,
+    "km": null,
+    "combustivel": "Gasolina",
+    "caixa": "Automática",
+    "potencia_cv": 510,
+    "preco": null,
+    "imagem": "cars/aston-vantage-roadster.webp",
+    "cor": "#1b2236",
+    "frames": ["cars/aston-vantage-roadster/1.webp", "cars/aston-vantage-roadster/4.webp", "cars/aston-vantage-roadster/5.webp", "cars/aston-vantage-roadster/6.webp", "cars/aston-vantage-roadster/3.webp", "cars/aston-vantage-roadster/2.webp"],
+    "demo": false
+  },
+  {
     "id": "ferrari-458-spider-rosso",
     "marca": "Ferrari",
     "modelo": "458 Spider",
