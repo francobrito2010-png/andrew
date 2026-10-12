@@ -20,6 +20,15 @@ As imagens atuais **não são fotos**: são renders 3D gerados a partir de model
 São só para a demonstração. Para o site real usar fotos do stock do cliente (ver abaixo).
 O 360° está ativo no Ferrari vermelho e no Concept laranja (36 frames cada, ~1,2 MB por carro, só descarregados ao tocar em "360°").
 
+## Estrutura do site
+
+1. **Showroom 3D** (portada) — plataforma giratória, swipe, 360°.
+2. **Stock** — grelha com todas as viaturas, filtro por marca, botão "ver em 3D" e WhatsApp por carro.
+3. **Em destaque** — o primeiro carro real (`"demo": false`) com várias fotos, galeria de ângulos e ficha técnica.
+4. **Serviços** — Financiamento, Retoma, Garantia, Documentação (textos genéricos, confirmar com o cliente).
+5. **O stand** — foto real da fachada (`assets/stand.webp`) e texto de apresentação (genérico).
+6. **Contacto** — telefone, morada, horário e formulário que abre o WhatsApp com a mensagem escrita.
+
 ## ⚠️ Dados DEMO a substituir
 
 O site do cliente não pôde ser lido durante o desenvolvimento, por isso **todos os dados são de exemplo**:
