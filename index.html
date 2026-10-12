@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0b0d">
-<title>Showroom Virtual · Daniel Pinho Automóveis</title>
+<title>Daniel Pinho Automóveis · Showroom</title>
 <meta name="description" content="Showroom virtual: deslize para ver as viaturas em stock.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -300,23 +300,6 @@ img{display:block;max-width:100%}
 .thumb b{display:block;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .thumb span{font-size:11px;color:var(--accent);font-weight:600}
 
-/* Diálogo "Ver todos" */
-.all{
-  margin:auto;width:min(1000px,calc(100vw - 24px));max-height:calc(100dvh - 40px);
-  background:#0f1012;color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:0;
-}
-.all::backdrop{background:rgba(0,0,0,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.all-head{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#0f1012;border-bottom:1px solid var(--line);z-index:1}
-.all-head h2{font-size:18px}
-.all-close{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);font-size:20px}
-.all-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding:16px 18px 20px}
-.card{text-align:left;padding:12px;border-radius:16px;background:#15161a;border:1px solid var(--line);transition:border-color .2s}
-.card:hover{border-color:var(--accent)}
-.card img{width:100%;aspect-ratio:2.3;object-fit:contain;margin-bottom:10px}
-.card b{display:block;font-size:15px}
-.card small{display:block;color:var(--muted);font-size:12px;margin:2px 0 6px}
-.card span{color:var(--accent);font-weight:800}
-
 /* Toast */
 .toast{
   position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));z-index:60;
@@ -334,11 +317,127 @@ img{display:block;max-width:100%}
 .fab-wa{background:var(--wa);color:#fff}
 .fab-call{background:#1c1d21;border:1px solid rgba(255,255,255,.16);color:var(--accent)}
 
-/* Rodapé (Financiamento / Sobre nós / Contacto) */
-.info{max-width:1100px;margin:28px auto 0;padding:24px 16px 110px;display:grid;gap:22px;border-top:1px solid var(--line)}
-.info h3{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.info p{font-size:14px;line-height:1.6;color:#c9c4ba}
-@media (min-width:700px){.info{grid-template-columns:repeat(3,1fr);padding:32px 32px 110px}}
+/* =========================================================
+   SECÇÕES DO SITE (stock, destaque, serviços, stand, contacto)
+   ========================================================= */
+.section{max-width:1200px;margin:0 auto;padding:72px 16px}
+@media (min-width:700px){.section{padding:104px 32px}}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+@media (min-width:900px){.sec-head{flex-direction:row;justify-content:space-between;align-items:flex-end}}
+.kicker{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--accent)}
+.kicker::before{content:"";width:28px;height:1px;background:var(--accent)}
+.h2{font-size:clamp(28px,5vw,46px);font-weight:600;letter-spacing:-.025em;line-height:1.08;margin-top:12px}
+.lead{color:#b9b4aa;font-size:15px;line-height:1.7;max-width:520px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,74,.35),transparent);max-width:1200px;margin:0 auto}
+
+/* Stock */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:9px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.14);font-size:13px;font-weight:600;color:#cfcac0;transition:all .2s}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.grid{grid-template-columns:repeat(3,1fr);gap:22px}}
+.vcard{position:relative;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#141519,#0e0f12);border:1px solid var(--line);transition:transform .35s var(--ease-out),border-color .3s,box-shadow .35s}
+.vcard:hover{transform:translateY(-4px);border-color:rgba(232,184,74,.45);box-shadow:0 24px 50px -24px rgba(0,0,0,.9),0 0 0 1px rgba(232,184,74,.15)}
+.vcard[hidden]{display:none}
+.vcard-media{position:relative;aspect-ratio:16/10;display:grid;place-items:end center;padding:18px 14px 22px;
+  background:radial-gradient(ellipse 70% 55% at 50% 100%,rgba(255,210,140,.10),transparent 70%),linear-gradient(180deg,#1b1c20,#111215)}
+.vcard-media::after{content:"";position:absolute;left:14%;right:14%;bottom:16px;height:14px;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(0,0,0,.8),transparent 70%)}
+.vcard-media img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;object-position:50% 100%;transition:transform .5s var(--ease-out)}
+.vcard:hover .vcard-media img{transform:scale(1.04)}
+.badge{position:absolute;top:14px;left:14px;z-index:2;padding:5px 10px;border-radius:99px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:rgba(11,11,13,.7);border:1px solid rgba(232,184,74,.5);color:var(--accent)}
+.vcard-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.vcard-brand{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.vcard h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.vcard-meta{font-size:13px;color:var(--muted)}
+.vcard-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+.vcard-price{font-size:20px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.vcard-actions{display:flex;gap:8px}
+.icon-btn{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.14);transition:all .2s}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.icon-btn svg{width:18px;height:18px}
+.icon-btn--wa:hover{border-color:var(--wa);color:var(--wa)}
+
+/* Destaque */
+.feature{display:grid;gap:28px;align-items:center}
+@media (min-width:960px){.feature{grid-template-columns:1.35fr 1fr;gap:56px}}
+.feature-stage{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/11;display:grid;place-items:end center;padding:6% 5% 9%;
+  background:radial-gradient(ellipse 60% 40% at 50% 92%,rgba(255,205,130,.14),transparent 70%),radial-gradient(ellipse 80% 70% at 50% 0%,rgba(255,184,90,.10),transparent 60%),linear-gradient(180deg,#17181c,#0b0b0d);border:1px solid var(--line)}
+.feature-stage::before{content:"";position:absolute;left:8%;right:8%;top:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--led),transparent);box-shadow:0 0 18px 2px rgba(255,191,94,.4)}
+.feature-stage::after{content:"";position:absolute;left:12%;right:12%;bottom:7%;height:7%;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(0,0,0,.85),transparent 70%)}
+.feature-stage img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;object-position:50% 100%;transition:opacity .35s}
+.feature-thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px}
+.feature-thumbs button{aspect-ratio:16/10;border-radius:10px;background:#131418;border:1px solid var(--line);padding:4px;opacity:.55;transition:all .2s}
+.feature-thumbs button:hover{opacity:.9}
+.feature-thumbs button[aria-current="true"]{opacity:1;border-color:var(--accent)}
+.feature-thumbs img{width:100%;height:100%;object-fit:contain}
+.feature-info .h2{margin-bottom:6px}
+.feature-price{font-size:28px;font-weight:800;color:var(--accent);margin:10px 0 22px}
+.spec-table{list-style:none;border-top:1px solid var(--line);margin-bottom:26px}
+.spec-table li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
+.spec-table span{color:var(--muted)}
+.spec-table b{font-weight:600}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px}
+.btn-row .btn{flex:1 1 200px}
+
+/* Serviços */
+.services{display:grid;gap:16px;grid-template-columns:1fr}
+@media (min-width:640px){.services{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.services{grid-template-columns:repeat(4,1fr)}}
+.service{padding:28px 24px;border-radius:20px;background:linear-gradient(180deg,#131418,#0e0f12);border:1px solid var(--line);transition:border-color .3s,transform .3s var(--ease-out)}
+.service:hover{border-color:rgba(232,184,74,.4);transform:translateY(-3px)}
+.service-ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:20px;background:rgba(232,184,74,.1);border:1px solid rgba(232,184,74,.3);color:var(--accent)}
+.service-ico svg{width:22px;height:22px}
+.service h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.service p{font-size:14px;line-height:1.65;color:#aaa59b}
+
+/* O stand */
+.stand{display:grid;gap:32px;align-items:center}
+@media (min-width:960px){.stand{grid-template-columns:1fr 1fr;gap:64px}}
+.stand-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line)}
+.stand-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.05)}
+.stand-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,11,13,.7))}
+.stand-photo figcaption{position:absolute;left:20px;bottom:18px;z-index:1;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#e9e4da}
+.pillars{list-style:none;display:grid;gap:14px;margin-top:26px}
+.pillars li{display:flex;gap:14px;align-items:flex-start;font-size:14px;line-height:1.6;color:#c9c4ba}
+.pillars li::before{content:"";flex:0 0 8px;height:8px;margin-top:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(232,184,74,.6)}
+.pillars b{color:var(--ink)}
+
+/* Contacto */
+.contact{display:grid;gap:28px}
+@media (min-width:960px){.contact{grid-template-columns:1fr 1.15fr;gap:56px}}
+.contact-list{list-style:none;display:grid;gap:12px;margin-top:26px}
+.contact-list li{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:16px;background:#111215;border:1px solid var(--line)}
+.contact-list svg{flex:0 0 20px;width:20px;height:20px;color:var(--accent)}
+.contact-list small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.contact-list a,.contact-list span{font-weight:600;font-size:15px}
+.form{padding:26px 22px;border-radius:24px;background:linear-gradient(180deg,#141519,#0e0f12);border:1px solid var(--line);display:grid;gap:14px}
+@media (min-width:700px){.form{padding:34px;grid-template-columns:1fr 1fr}.form .full{grid-column:1/-1}}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{font:inherit;font-size:15px;color:var(--ink);background:#0b0b0d;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:13px 14px;outline:none;transition:border-color .2s;width:100%}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+.form .btn{width:100%}
+.form-note{font-size:12px;color:var(--muted)}
+
+/* Rodapé */
+.site-footer{border-top:1px solid var(--line);padding:40px 16px 110px;text-align:center;display:grid;gap:16px;justify-items:center;color:var(--muted);font-size:13px}
+.site-footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:22px;font-weight:600;color:#cfcac0}
+.site-footer nav a:hover{color:var(--accent)}
+
+/* Botão do cabeçalho */
+.btn-head{padding:9px 16px;border-radius:99px;border:1px solid var(--accent);color:var(--accent);font-weight:700;font-size:13px;transition:all .2s}
+.btn-head:hover{background:var(--accent);color:var(--accent-ink)}
+
+/* Título sobre o palco */
+.stage-tag{position:absolute;left:50%;top:30px;transform:translateX(-50%);z-index:6;font-size:11px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:rgba(242,238,230,.55);white-space:nowrap;pointer-events:none;display:none}
+@media (min-width:700px){.stage-tag{display:block}}
+
+/* Revelar ao fazer scroll */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
 
 /* =========================================================
    MOVIMENTO REDUZIDO
@@ -347,6 +446,7 @@ img{display:block;max-width:100%}
   html{scroll-behavior:auto}
   .car-body{animation:none}
   .fx-in{animation:fadeIn .3s both}
+  .reveal{opacity:1;transform:none;transition:none}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 }
 </style>
@@ -361,13 +461,15 @@ img{display:block;max-width:100%}
     <b id="brandName">Daniel Pinho</b><span>Automóveis</span>
   </a>
   <nav class="nav" aria-label="Menu principal">
-    <a href="#showroom">Stock</a>
-    <a href="#financiamento">Financiamento</a>
-    <a href="#sobre">Sobre nós</a>
+    <a href="#showroom">Showroom</a>
+    <a href="#stock">Stock</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#stand">O stand</a>
     <a href="#contacto">Contacto</a>
   </nav>
   <div class="header-right">
     <a href="#" class="js-tel" id="headerTel"></a>
+    <a href="#contacto" class="btn-head">Agendar visita</a>
     <a href="#" class="ico js-fb" aria-label="Facebook" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg>
     </a>
@@ -378,9 +480,10 @@ img{display:block;max-width:100%}
   <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mnav"><span></span></button>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menu móvel">
-  <a href="#showroom">Stock</a>
-  <a href="#financiamento">Financiamento</a>
-  <a href="#sobre">Sobre nós</a>
+  <a href="#showroom">Showroom</a>
+  <a href="#stock">Stock</a>
+  <a href="#servicos">Serviços</a>
+  <a href="#stand">O stand</a>
   <a href="#contacto">Contacto</a>
   <a href="#" class="tel js-tel"></a>
 </nav>
@@ -414,6 +517,7 @@ img{display:block;max-width:100%}
     </div>
 
     <div class="vignette" aria-hidden="true" style="position:absolute;pointer-events:none"></div>
+    <p class="stage-tag" aria-hidden="true">Showroom digital</p>
 
     <div class="hud">
       <span class="counter" id="counter" aria-hidden="true"><b>01</b> / 06</span>
@@ -476,7 +580,7 @@ img{display:block;max-width:100%}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
         Agendar visita
       </a>
-      <button class="btn btn-ghost" id="ctaAll" type="button">Ver todos os carros</button>
+      <a class="btn btn-ghost" id="ctaAll" href="#stock">Ver todo o stock</a>
     </div>
   </section>
 
@@ -485,26 +589,124 @@ img{display:block;max-width:100%}
   </nav>
 </main>
 
-<!-- DEMO: textos genéricos — substituir pelos do cliente -->
-<footer class="info">
-  <div id="financiamento">
-    <h3>Financiamento</h3>
-    <p>Simulamos o crédito automóvel à sua medida. Fale connosco e conheça as condições disponíveis para a viatura que escolher.</p>
-  </div>
-  <div id="sobre">
-    <h3>Sobre nós</h3>
-    <p>Viaturas selecionadas, revistas e prontas a entregar. Venha conhecer o nosso stand e fazer um test-drive.</p>
-  </div>
-  <div id="contacto">
-    <h3>Contacto</h3>
-    <p><a class="js-tel" href="#"></a><br><span id="morada"></span><br><span id="horario"></span></p>
-  </div>
-</footer>
+<div class="divider"></div>
 
-<dialog class="all" id="allDialog" aria-labelledby="allTitle">
-  <div class="all-head"><h2 id="allTitle">Viaturas em stock</h2><button class="all-close" id="allClose" aria-label="Fechar">×</button></div>
-  <div class="all-grid" id="allGrid"></div>
-</dialog>
+<!-- =========================================================
+     STOCK
+     ========================================================= -->
+<section class="section" id="stock" aria-labelledby="stockTitle">
+  <div class="sec-head reveal">
+    <div>
+      <p class="kicker">Stock</p>
+      <h2 class="h2" id="stockTitle">Viaturas disponíveis</h2>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filtrar por marca"></div>
+  </div>
+  <div class="grid" id="stockGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
+     DESTAQUE (primeiro carro real com várias fotos)
+     ========================================================= -->
+<section class="section" id="destaque" aria-labelledby="featTitle">
+  <div class="feature">
+    <div class="reveal">
+      <figure class="feature-stage"><img id="featImg" alt=""></figure>
+      <div class="feature-thumbs" id="featThumbs" aria-label="Ângulos da viatura"></div>
+    </div>
+    <div class="feature-info reveal">
+      <p class="kicker">Em destaque</p>
+      <h2 class="h2" id="featTitle"></h2>
+      <p class="feature-price" id="featPrice"></p>
+      <ul class="spec-table" id="featSpecs"></ul>
+      <div class="btn-row">
+        <a class="btn btn-primary" id="featWa" href="#" target="_blank" rel="noopener">Pedir informações</a>
+        <button class="btn btn-ghost" id="featShow" type="button">Ver no showroom 3D</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
+     SERVIÇOS — DEMO: textos genéricos, confirmar com o cliente
+     ========================================================= -->
+<section class="section" id="servicos" aria-labelledby="servTitle">
+  <div class="sec-head reveal">
+    <div>
+      <p class="kicker">Serviços</p>
+      <h2 class="h2" id="servTitle">Tudo tratado por nós</h2>
+    </div>
+    <p class="lead">Da escolha à entrega, acompanhamos cada passo para que só tenha de desfrutar da viatura.</p>
+  </div>
+  <div class="services">
+    <article class="service reveal" id="financiamento"><div class="service-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div><h3>Financiamento</h3><p>Soluções de crédito à medida, com simulação rápida e sem compromisso.</p></article>
+    <article class="service reveal"><div class="service-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3>Retoma</h3><p>Avaliamos a sua viatura atual e descontamos o valor na compra.</p></article>
+    <article class="service reveal"><div class="service-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Garantia</h3><p>Viaturas revistas e entregues com garantia, para comprar com tranquilidade.</p></article>
+    <article class="service reveal"><div class="service-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Documentação</h3><p>Tratamos de toda a documentação e registo para uma entrega sem preocupações.</p></article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
+     O STAND — DEMO: texto genérico, confirmar com o cliente
+     ========================================================= -->
+<section class="section" id="stand" aria-labelledby="standTitle">
+  <div class="stand">
+    <figure class="stand-photo reveal" id="sobre">
+      <img src="assets/stand.webp" alt="Fachada do stand Daniel Pinho Automóveis com um Aston Martin à porta" loading="lazy">
+      <figcaption>O nosso stand</figcaption>
+    </figure>
+    <div class="reveal">
+      <p class="kicker">O stand</p>
+      <h2 class="h2" id="standTitle">Automóveis selecionados, um a um</h2>
+      <p class="lead" style="margin-top:16px">Cada viatura do nosso stock é escolhida pelo seu estado, historial e exclusividade. Venha conhecê-las pessoalmente, sem pressas.</p>
+      <ul class="pillars">
+        <li><span><b>Seleção criteriosa</b> — viaturas verificadas antes de entrarem em stock.</span></li>
+        <li><span><b>Atendimento personalizado</b> — visitas e test-drives por marcação.</span></li>
+        <li><span><b>Transparência</b> — toda a informação da viatura, antes de decidir.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
+     CONTACTO
+     ========================================================= -->
+<section class="section" id="contacto" aria-labelledby="contTitle">
+  <div class="contact">
+    <div class="reveal">
+      <p class="kicker">Contacto</p>
+      <h2 class="h2" id="contTitle">Agende a sua visita</h2>
+      <p class="lead" style="margin-top:16px">Diga-nos que viatura quer ver e quando lhe dá jeito. Respondemos pelo WhatsApp.</p>
+      <ul class="contact-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><div><small>Telefone</small><a class="js-tel" href="#"></a></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><small>Morada</small><span id="morada"></span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div><small>Horário</small><span id="horario"></span></div></li>
+      </ul>
+    </div>
+    <form class="form reveal" id="contactForm" novalidate>
+      <div class="field"><label for="fNome">Nome</label><input id="fNome" name="nome" autocomplete="name" required></div>
+      <div class="field"><label for="fTel">Telefone</label><input id="fTel" name="telefone" type="tel" autocomplete="tel"></div>
+      <div class="field full"><label for="fCarro">Viatura de interesse</label><select id="fCarro" name="carro"><option value="">Ainda não sei</option></select></div>
+      <div class="field full"><label for="fMsg">Mensagem</label><textarea id="fMsg" name="mensagem" placeholder="Ex.: gostava de ver o carro no sábado de manhã."></textarea></div>
+      <div class="full"><button class="btn btn-primary" type="submit">Enviar pelo WhatsApp</button></div>
+      <p class="form-note full">Ao enviar, abre o WhatsApp com a mensagem já escrita.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <a class="logo" href="#showroom" style="align-items:center"><b>Daniel Pinho</b><span>Automóveis</span></a>
+  <nav aria-label="Rodapé"><a href="#stock">Stock</a><a href="#servicos">Serviços</a><a href="#stand">O stand</a><a href="#contacto">Contacto</a></nav>
+  <p>© <span id="year"></span> Daniel Pinho Automóveis</p>
+</footer>
 
 <div class="toast" id="toast" role="status"></div>
 
@@ -706,9 +908,16 @@ function toast(msg){
   clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-/* Miniaturas + diálogo "Ver todos" */
+/* Miniaturas + grelha de stock + destaque + formulário */
+const ICON_WA = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>';
+const ICON_3D = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>';
+const infoMsg = car => `Olá! Tenho interesse no ${nameYear(car)}${has(car.preco) ? ' por ' + fmtPrice(car.preco) : ''}. Posso agendar uma visita?`;
+function showInShowroom(i){
+  stage.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+  setTimeout(() => jumpTo(i), reduced ? 0 : 450);
+}
 function buildThumbs(){
-  const track = $('thumbs'), grid = $('allGrid');
+  const track = $('thumbs'), grid = $('stockGrid'), sel = $('fCarro');
   cars.forEach((car, i) => {
     const b = document.createElement('button');
     b.className = 'thumb'; b.type = 'button';
@@ -717,14 +926,79 @@ function buildThumbs(){
     b.addEventListener('click', () => jumpTo(i));
     track.appendChild(b);
 
-    const c = document.createElement('button');
-    c.className = 'card'; c.type = 'button';
-    c.innerHTML = `<img alt="" src="${silhouette(car.cor)}"><b>${fullName(car)}</b><small>${[car.ano, has(car.km) ? fmtKm(car.km) : null, car.combustivel].filter(has).join(' · ')}</small><span>${fmtPrice(car.preco)}</span>`;
-    c.addEventListener('click', () => { $('allDialog').close(); jumpTo(i); stage.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'}); });
+    const meta = [car.ano, has(car.km) ? fmtKm(car.km) : null, car.combustivel, has(car.potencia_cv) ? fmtCv(car.potencia_cv) : null].filter(has).join(' · ');
+    const c = document.createElement('article');
+    c.className = 'vcard reveal'; c.dataset.marca = car.marca;
+    c.innerHTML = `<div class="vcard-media">${car.frames && car.frames.length > 1 ? '<span class="badge">360°</span>' : ''}<img alt="${fullName(car)}" loading="lazy" src="${silhouette(car.cor)}"></div>
+      <div class="vcard-body"><p class="vcard-brand">${car.marca}</p><h3>${car.modelo}</h3><p class="vcard-meta">${meta}</p>
+      <div class="vcard-foot"><span class="vcard-price">${fmtPrice(car.preco)}</span><div class="vcard-actions">
+      <button class="icon-btn" type="button" aria-label="Ver ${fullName(car)} no showroom 3D">${ICON_3D}</button>
+      <a class="icon-btn icon-btn--wa" href="${waLink(infoMsg(car))}" target="_blank" rel="noopener" aria-label="Pedir informações do ${fullName(car)} por WhatsApp">${ICON_WA}</a>
+      </div></div></div>`;
+    c.querySelector('button').addEventListener('click', () => showInShowroom(i));
     grid.appendChild(c);
 
-    resolveSrc(car).then(src => { b.querySelector('img').src = src; c.querySelector('img').src = src; });
+    sel.add(new Option(nameYear(car), nameYear(car)));
+    resolveSrc(car).then(src => { b.querySelector('img').src = src; c.querySelector('.vcard-media img').src = src; });
   });
+
+  // filtros por marca
+  const marcas = ['Todas', ...new Set(cars.map(c => c.marca))];
+  marcas.forEach((m, k) => {
+    const chip = document.createElement('button');
+    chip.className = 'chip'; chip.type = 'button'; chip.textContent = m;
+    chip.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+    chip.addEventListener('click', () => {
+      $('chips').querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === chip ? 'true' : 'false'));
+      grid.querySelectorAll('.vcard').forEach(v => { v.hidden = !(k === 0 || v.dataset.marca === m); });
+    });
+    $('chips').appendChild(chip);
+  });
+}
+
+function buildFeature(){
+  const i = Math.max(0, cars.findIndex(c => !c.demo && c.frames && c.frames.length > 1));
+  const car = cars[i], shots = car.frames && car.frames.length ? car.frames : [car.imagem];
+  $('featTitle').textContent = fullName(car);
+  $('featPrice').textContent = has(car.preco) ? fmtPrice(car.preco) : 'Preço sob consulta';
+  const rows = [['Ano', has(car.ano) ? car.ano : 'Sob consulta'], ['Quilómetros', has(car.km) ? fmtKm(car.km) : 'Sob consulta'],
+    ['Potência', has(car.potencia_cv) ? fmtCv(car.potencia_cv) : '—'], ['Combustível', car.combustivel || '—'], ['Caixa', car.caixa || '—']];
+  $('featSpecs').innerHTML = rows.map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join('');
+  $('featWa').href = waLink(infoMsg(car));
+  $('featShow').addEventListener('click', () => showInShowroom(i));
+  const img = $('featImg'); img.alt = fullName(car);
+  resolveSrc(car).then(s => { img.src = car.frames && car.frames.length ? shots[0] : s; });
+  shots.slice(0, 6).forEach((s, k) => {
+    const t = document.createElement('button'); t.type = 'button';
+    t.setAttribute('aria-label', `Ângulo ${k + 1}`); t.setAttribute('aria-current', k === 0 ? 'true' : 'false');
+    t.innerHTML = `<img alt="" loading="lazy" src="${s}">`;
+    t.addEventListener('click', () => {
+      img.src = s;
+      $('featThumbs').querySelectorAll('button').forEach(x => x.setAttribute('aria-current', x === t ? 'true' : 'false'));
+    });
+    $('featThumbs').appendChild(t);
+  });
+}
+
+function setupForm(){
+  $('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, nome = f.nome.value.trim();
+    if(!nome){ f.nome.focus(); toast('Indique o seu nome'); return; }
+    const parts = [`Olá! Sou ${nome}${f.telefone.value.trim() ? ' (' + f.telefone.value.trim() + ')' : ''}.`];
+    parts.push(f.carro.value ? `Tenho interesse no ${f.carro.value}.` : 'Gostava de agendar uma visita ao stand.');
+    if(f.mensagem.value.trim()) parts.push(f.mensagem.value.trim());
+    window.open(waLink(parts.join(' ')), '_blank', 'noopener');
+  });
+}
+
+function setupReveal(){
+  const els = document.querySelectorAll('.reveal');
+  if(reduced || !('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('in')); return; }
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+  }), {rootMargin: '0px 0px -8% 0px'});
+  els.forEach(el => io.observe(el));
 }
 function updateThumbs(active){
   const track = $('thumbs');
@@ -947,9 +1221,7 @@ $('burger').addEventListener('click', () => {
   $('burger').setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
 });
 $('mnav').addEventListener('click', e => { if(e.target.closest('a')){ $('header').classList.remove('open'); $('burger').setAttribute('aria-expanded', false); } });
-$('ctaAll').addEventListener('click', () => $('allDialog').showModal());
-$('allClose').addEventListener('click', () => $('allDialog').close());
-$('allDialog').addEventListener('click', e => { if(e.target === $('allDialog')) $('allDialog').close(); });
+
 
 /* =========================================================
    ARRANQUE — animação de entrada (< 1,5 s)
@@ -962,6 +1234,10 @@ async function init(){
   cars = await loadCars();
   if(cars.some(c => c.demo)) console.info('[Showroom] Existem carros com "demo": true — substituir por dados reais.');
   buildThumbs();
+  buildFeature();
+  setupForm();
+  setupReveal();
+  $('year').textContent = new Date().getFullYear();
   const first = cars[0];
   const src = await resolveSrc(first);
   setCarImage(carActive, src, fullName(first));
