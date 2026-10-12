@@ -539,7 +539,7 @@ const STAND = {
 // Cópia de cars.json — usada se o fetch falhar (ex.: abrir o ficheiro em file://)
 const seq = dir => Array.from({length:36}, (_, i) => `cars/${dir}/${String(i).padStart(2, '0')}.webp`);
 const FALLBACK_CARS = [
-  {id:'aston-martin-vantage-roadster',marca:'Aston Martin',modelo:'Vantage Roadster',ano:null,km:null,combustivel:'Gasolina',caixa:'Automática',potencia_cv:510,preco:null,imagem:'cars/aston-vantage-roadster.webp',cor:'#1b2236',frames:[1,4,5,3,2].map(i => `cars/aston-vantage-roadster/${i}.webp`),demo:false},
+  {id:'aston-martin-vantage-roadster',marca:'Aston Martin',modelo:'Vantage Roadster',ano:null,km:null,combustivel:'Gasolina',caixa:'Automática',potencia_cv:510,preco:null,imagem:'cars/aston-vantage-roadster.webp',cor:'#1b2236',frames:[1,4,5,6,3,2].map(i => `cars/aston-vantage-roadster/${i}.webp`),demo:false},
   {id:'ferrari-458-spider-rosso',marca:'Ferrari',modelo:'458 Spider',ano:2014,km:21500,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:214900,imagem:'cars/ferrari-458-rosso.webp',cor:'#a50f12',frames:seq('ferrari-458-rosso'),demo:true},
   {id:'concept-gt-arancio',marca:'Concept',modelo:'GT Coupé',ano:2025,km:900,combustivel:'Elétrico',caixa:'Automática',potencia_cv:680,preco:249900,imagem:'cars/concept-gt-arancio.webp',cor:'#d9520f',frames:seq('concept-gt-arancio'),demo:true},
   {id:'ferrari-458-spider-giallo',marca:'Ferrari',modelo:'458 Spider',ano:2013,km:28900,combustivel:'Gasolina',caixa:'Automática',potencia_cv:570,preco:199900,imagem:'cars/ferrari-458-giallo.webp',cor:'#e3a90a',frames:[],demo:true},
