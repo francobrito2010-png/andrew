@@ -29,6 +29,8 @@ O 360° está ativo no Ferrari vermelho e no Concept laranja (36 frames cada, ~1
 5. **O stand** — foto real da fachada (`assets/stand.webp`) e texto de apresentação (genérico).
 6. **Contacto** — telefone, morada, horário e formulário que abre o WhatsApp com a mensagem escrita.
 
+**Tema claro / escuro:** botão sol/lua no cabeçalho. O escuro (dourado) é o padrão; o claro é branco e preto. A escolha fica guardada no navegador do visitante.
+
 ## ⚠️ Dados DEMO a substituir
 
 O site do cliente não pôde ser lido durante o desenvolvimento, por isso **todos os dados são de exemplo**:
