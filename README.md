@@ -35,6 +35,10 @@ O 360° está ativo no Ferrari vermelho e no Concept laranja (36 frames cada, ~1
 
 Página extra com estilo de poster de colecionador (McLaren 720S e Ferrari 488 Pista): banda de cor central, nome gigante, esboços laterais, cifras animadas e transição entre modelos. O prompt usado está em `poster/PROMPT.md`. As imagens saem de pósters de referência (demo); as marcas e logótipos pertencem aos respetivos donos.
 
+## Adicionar carros novos
+
+Tudo é gerado a partir de fotos com `tools/preparar_coche.py` (modos `showroom` e `poster`). Instruções em `tools/README.md`.
+
 ## ⚠️ Dados DEMO a substituir
 
 O site do cliente não pôde ser lido durante o desenvolvimento, por isso **todos os dados são de exemplo**:

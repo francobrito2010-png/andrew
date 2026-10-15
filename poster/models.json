@@ -1,0 +1,181 @@
+[
+  {
+    "id": "720s",
+    "marca": "McLaren",
+    "titulo": "McLAREN",
+    "cidade": "Woking",
+    "logo": "img/mclaren-logo.webp",
+    "logoLargo": true,
+    "modelo": "720S",
+    "italico": true,
+    "cursiva": null,
+    "lema": [
+      "DRIVEN",
+      "BY",
+      "PERFECTION."
+    ],
+    "cor": "#E8701A",
+    "cor2": "#C24F0E",
+    "carro": "img/mclaren-car.webp",
+    "esbocoL": "img/mclaren-sketch-l.webp",
+    "esbocoR": "img/mclaren-sketch-r.webp",
+    "stats": [
+      {
+        "l": "Potência",
+        "v": 720,
+        "u": "cv"
+      },
+      {
+        "l": "Velocidade máx.",
+        "v": 341,
+        "u": "km/h"
+      },
+      {
+        "l": "0-100 km/h",
+        "v": 2.9,
+        "u": "s",
+        "d": 1
+      }
+    ],
+    "eslogan": "Pure performance. Relentless innovation.",
+    "bandeira": "uk",
+    "icones": [
+      [
+        "engine",
+        "Motor V8 4.0<br>biturbo"
+      ],
+      [
+        "fiber",
+        "Fibra de<br>carbono"
+      ],
+      [
+        "aero",
+        "Aerodinâmica<br>avançada"
+      ],
+      [
+        "wheel",
+        "Controlo<br>preciso"
+      ]
+    ],
+    "rodape": "McLaren<br>desde 1963"
+  },
+  {
+    "id": "488pista",
+    "marca": "Ferrari",
+    "titulo": "FERRARI",
+    "cidade": "Maranello",
+    "logo": "img/ferrari-logo.webp",
+    "logoLargo": false,
+    "modelo": "488",
+    "italico": false,
+    "cursiva": "PISTA",
+    "lema": [
+      "BUILT",
+      "FOR",
+      "PASSION."
+    ],
+    "cor": "#C8161D",
+    "cor2": "#8C0D12",
+    "carro": "img/ferrari-car.webp",
+    "esbocoL": "img/ferrari-sketch-l.webp",
+    "esbocoR": "img/ferrari-sketch-r.webp",
+    "stats": [
+      {
+        "l": "Potência",
+        "v": 720,
+        "u": "cv"
+      },
+      {
+        "l": "Velocidade máx.",
+        "v": 340,
+        "u": "km/h"
+      },
+      {
+        "l": "0-100 km/h",
+        "v": 2.85,
+        "u": "s",
+        "d": 2
+      }
+    ],
+    "eslogan": "Pure performance. Italian soul.",
+    "bandeira": "it",
+    "icones": [
+      [
+        "engine",
+        "Motor V8 3.9<br>biturbo"
+      ],
+      [
+        "gauge",
+        "ADN de<br>competição"
+      ],
+      [
+        "wheel",
+        "Condução de<br>precisão"
+      ],
+      [
+        "heritage",
+        "Herança<br>intemporal"
+      ]
+    ],
+    "rodape": "Ferrari<br>desde 1947"
+  },
+  {
+    "id": "vantage-roadster",
+    "marca": "Aston Martin",
+    "titulo": "ASTON MARTIN",
+    "cidade": "Gaydon",
+    "logo": null,
+    "logoLargo": false,
+    "modelo": "VANTAGE",
+    "cursiva": "ROADSTER",
+    "lema": [
+      "POWER.",
+      "BEAUTY.",
+      "SOUL."
+    ],
+    "cor": "#1E3A5F",
+    "cor2": "#0E1E33",
+    "carro": "img/vantage-roadster-car.webp",
+    "esbocoL": "img/vantage-roadster-sketch-l.webp",
+    "esbocoR": "img/vantage-roadster-sketch-r.webp",
+    "stats": [
+      {
+        "l": "Potência",
+        "v": 510,
+        "u": "cv"
+      },
+      {
+        "l": "Velocidade máx.",
+        "v": 305,
+        "u": "km/h"
+      },
+      {
+        "l": "0-100 km/h",
+        "v": 3.8,
+        "u": "s",
+        "d": 1
+      }
+    ],
+    "eslogan": "Pure performance. British elegance.",
+    "bandeira": "uk",
+    "icones": [
+      [
+        "engine",
+        "Motor V8 4.0<br>biturbo"
+      ],
+      [
+        "seat",
+        "Interior<br>em pele"
+      ],
+      [
+        "aero",
+        "Capota<br>elétrica"
+      ],
+      [
+        "heritage",
+        "Herança<br>britânica"
+      ]
+    ],
+    "rodape": "Aston Martin<br>desde 1913"
+  }
+]
