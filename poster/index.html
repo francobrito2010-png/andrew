@@ -54,10 +54,12 @@ img{display:block;max-width:100%}
 .dots{display:flex;gap:6px;padding:4px;border-radius:99px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.08);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .dot{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);transition:all .3s var(--ease)}
 .dot[aria-current="true"]{background:var(--c);color:#fff}
+@media (max-width:600px){.dot{font-size:0;width:12px;height:12px;padding:0;background:rgba(0,0,0,.18)}.dots{gap:8px;padding:8px 10px}.pbar small{max-width:30%;line-height:1.3}}
 
 .logo-slot{position:relative;z-index:2;height:clamp(56px,9vw,130px);display:flex;justify-content:center;align-items:center}
 .logo-slot img{height:100%;width:auto;max-width:calc((var(--br) - var(--bl)) * .8);object-fit:contain}
 .logo-slot img.wide{height:42%}
+.logo-text{font-family:'Michroma',sans-serif;font-size:clamp(12px,1.6vw,20px);letter-spacing:.18em;text-transform:uppercase;color:#fff}
 
 .title{position:relative;z-index:3;margin-top:clamp(36px,9vw,150px);font-family:'Michroma',sans-serif;font-weight:400;
   font-size:clamp(38px,11.5vw,186px);line-height:1;letter-spacing:.01em;white-space:nowrap;color:var(--ink)}
@@ -65,6 +67,7 @@ img{display:block;max-width:100%}
 .model{position:relative;z-index:3;margin-top:clamp(6px,1vw,14px);font-family:'Michroma',sans-serif;font-size:clamp(17px,4.2vw,60px);line-height:1.1;white-space:nowrap}
 .model span{display:inline-block}
 .model .w{color:#fff}
+.model .w.clip{color:transparent;-webkit-background-clip:text;background-clip:text}
 .model .k{color:var(--ink)}
 .model .it{transform:skewX(-14deg);font-weight:400}
 .tagline{position:relative;z-index:3;margin:clamp(28px,6vw,90px) auto 0;color:#fff;font-weight:600;font-size:clamp(12px,1.6vw,22px);letter-spacing:.14em;line-height:1.75}
@@ -141,7 +144,7 @@ img{display:block;max-width:100%}
       <small id="pCity"></small>
     </header>
 
-    <div class="logo-slot fx" style="--i:0"><img id="logo" alt=""></div>
+    <div class="logo-slot fx" style="--i:0" id="logoSlot"></div>
     <h1 class="title" id="title" aria-label=""></h1>
     <p class="model fx" style="--i:1" id="model"></p>
     <p class="tagline fx" style="--i:2" id="tagline"></p>
@@ -186,24 +189,38 @@ const I = {
   aero:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
   wheel:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M3.5 10.5c3 1 5.5 1 8.5 1s5.5 0 8.5-1M12 14.5V21"/>',
   fiber:'<path d="M4 4l16 16M4 10l10 10M10 4l10 10M4 16l4 4M16 4l4 4"/>',
-  heritage:'<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8-4.3-4.1 5.9-.9z"/>'
+  heritage:'<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8-4.3-4.1 5.9-.9z"/>',
+  electric:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  seat:'<path d="M8 3h5l-1 9h5l1 5H9z"/><path d="M9 17l-1 4M16 17l1 4"/>'
 };
-const MODELS = [
-  { id:'720s', brand:'McLaren', title:'McLAREN', city:'Woking', logo:'img/mclaren-logo.webp', logoWide:true,
-    model:[{t:'720S', c:'w it'}], tagline:['DRIVEN','BY','PERFECTION.'],
-    c:'#E8701A', c2:'#C24F0E', car:'img/mclaren-car.webp', skL:'img/mclaren-sketch-l.webp', skR:'img/mclaren-sketch-r.webp',
-    stats:[{l:'Potência', v:720, u:'cv'}, {l:'Velocidade máx.', v:341, u:'km/h'}, {l:'0-100 km/h', v:2.9, u:'s', d:1}],
-    slogan:'Pure performance. Relentless innovation.', flag:'uk',
-    features:[['engine','Motor V8 4.0<br>biturbo'], ['fiber','Fibra de<br>carbono'], ['aero','Aerodinâmica<br>avançada'], ['wheel','Controlo<br>preciso']],
-    foot:'McLaren<br>desde 1963' },
-  { id:'488pista', brand:'Ferrari', title:'FERRARI', city:'Maranello', logo:'img/ferrari-logo.webp', logoWide:false,
-    model:[{t:'488 ', c:'w'}, {t:'PISTA', c:'k it'}], tagline:['BUILT','FOR','PASSION.'],
-    c:'#C8161D', c2:'#8C0D12', car:'img/ferrari-car.webp', skL:'img/ferrari-sketch-l.webp', skR:'img/ferrari-sketch-r.webp',
-    stats:[{l:'Potência', v:720, u:'cv'}, {l:'Velocidade máx.', v:340, u:'km/h'}, {l:'0-100 km/h', v:2.85, u:'s', d:2}],
-    slogan:'Pure performance. Italian soul.', flag:'it',
-    features:[['engine','Motor V8 3.9<br>biturbo'], ['gauge','ADN de<br>competição'], ['wheel','Condução de<br>precisão'], ['heritage','Herança<br>intemporal']],
-    foot:'Ferrari<br>desde 1947' }
+// Modelos: lidos de models.json (gerado/atualizado por tools/preparar_coche.py).
+// Cópia de reserva para quando o fetch falha (ex.: abrir o ficheiro em file://).
+const FALLBACK = [
+  {id:'720s', marca:'McLaren', titulo:'McLAREN', cidade:'Woking', logo:'img/mclaren-logo.webp', logoLargo:true, modelo:'720S', italico:true, cursiva:null,
+   lema:['DRIVEN','BY','PERFECTION.'], cor:'#E8701A', cor2:'#C24F0E', carro:'img/mclaren-car.webp', esbocoL:'img/mclaren-sketch-l.webp', esbocoR:'img/mclaren-sketch-r.webp',
+   stats:[{l:'Potência',v:720,u:'cv'},{l:'Velocidade máx.',v:341,u:'km/h'},{l:'0-100 km/h',v:2.9,u:'s',d:1}],
+   eslogan:'Pure performance. Relentless innovation.', bandeira:'uk',
+   icones:[['engine','Motor V8 4.0<br>biturbo'],['fiber','Fibra de<br>carbono'],['aero','Aerodinâmica<br>avançada'],['wheel','Controlo<br>preciso']], rodape:'McLaren<br>desde 1963'},
+  {id:'488pista', marca:'Ferrari', titulo:'FERRARI', cidade:'Maranello', logo:'img/ferrari-logo.webp', logoLargo:false, modelo:'488', italico:false, cursiva:'PISTA',
+   lema:['BUILT','FOR','PASSION.'], cor:'#C8161D', cor2:'#8C0D12', carro:'img/ferrari-car.webp', esbocoL:'img/ferrari-sketch-l.webp', esbocoR:'img/ferrari-sketch-r.webp',
+   stats:[{l:'Potência',v:720,u:'cv'},{l:'Velocidade máx.',v:340,u:'km/h'},{l:'0-100 km/h',v:2.85,u:'s',d:2}],
+   eslogan:'Pure performance. Italian soul.', bandeira:'it',
+   icones:[['engine','Motor V8 3.9<br>biturbo'],['gauge','ADN de<br>competição'],['wheel','Condução de<br>precisão'],['heritage','Herança<br>intemporal']], rodape:'Ferrari<br>desde 1947'}
 ];
+const FLAGS = {
+  uk:'linear-gradient(180deg,#c8102e 0 30%,#fff 30% 42%,#012169 42% 100%)',
+  it:'linear-gradient(90deg,#008c45 0 33.3%,#f4f5f0 33.3% 66.6%,#cd212a 66.6%)',
+  de:'linear-gradient(180deg,#000 0 33.3%,#dd0000 33.3% 66.6%,#ffce00 66.6%)',
+  fr:'linear-gradient(90deg,#002395 0 33.3%,#fff 33.3% 66.6%,#ed2939 66.6%)',
+  pt:'linear-gradient(90deg,#006600 0 40%,#ff0000 40%)',
+  es:'linear-gradient(180deg,#aa151b 0 25%,#f1bf00 25% 75%,#aa151b 75%)',
+  jp:'radial-gradient(circle at 50% 50%,#bc002d 0 3px,#fff 3.5px)',
+  us:'linear-gradient(90deg,#3c3b6e 0 30%,transparent 30%),repeating-linear-gradient(180deg,#b22234 0 1px,#fff 1px 2px)',
+  se:'linear-gradient(90deg,#006aa7 0 30%,#fecc00 30% 42%,#006aa7 42%)',
+  none:'transparent'
+};
+let MODELS = FALLBACK;
+const modelName = m => m.modelo + (m.cursiva ? ' ' + m.cursiva : '');
 
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -212,15 +229,13 @@ let idx = 0, busy = false;
 const mod = i => (i % MODELS.length + MODELS.length) % MODELS.length;
 const num = (v, d = 0) => v.toLocaleString('pt-PT', {minimumFractionDigits:d, maximumFractionDigits:d});
 
-// pré-carregar tudo (são poucas imagens)
-MODELS.forEach(m => [m.logo, m.car, m.skL, m.skR].forEach(s => { const im = new Image(); im.src = s; }));
 
 /* =========================================================
    RENDER — preenche os textos de um modelo
    ========================================================= */
 function letters(text){
   $('title').setAttribute('aria-label', text);
-  $('title').innerHTML = [...text].map((ch, i) => `<span class="ch" aria-hidden="true" style="--i:${i}">${ch}</span>`).join('');
+  $('title').innerHTML = [...text].map((ch, i) => `<span class="ch" aria-hidden="true" style="--i:${i}">${ch === ' ' ? '\u00a0' : ch}</span>`).join('');
   return [...$('title').children];
 }
 function countTo(el, to, d, dur = 1000){
@@ -233,25 +248,43 @@ function countTo(el, to, d, dur = 1000){
   };
   requestAnimationFrame(step);
 }
+function fitTitle(){
+  // 1) o nome gigante cabe sempre na largura (nomes longos como ASTON MARTIN)
+  const t = $('title'); t.style.fontSize = '';
+  const ch = t.children;
+  if(ch.length){
+    const w = ch[ch.length - 1].getBoundingClientRect().right - ch[0].getBoundingClientRect().left;
+    const max = $('upper').clientWidth * .94;
+    if(w > max) t.style.fontSize = (parseFloat(getComputedStyle(t).fontSize) * max / w) + 'px';
+  }
+  // 2) a parte branca do modelo fica branca só dentro da banda e preta fora dela
+  const band = $('band').getBoundingClientRect();
+  $('model').querySelectorAll('.w').forEach(s => {
+    const r = s.getBoundingClientRect(), L = band.left - r.left, R = band.right - r.left;
+    s.style.backgroundImage = (L > 0 || R < r.width) ? `linear-gradient(90deg,var(--ink) ${L}px,#fff ${L}px,#fff ${R}px,var(--ink) ${R}px)` : '';
+    s.classList.toggle('clip', L > 0 || R < r.width);
+  });
+}
 function fillTexts(m){
-  poster.style.setProperty('--c', m.c);
-  poster.style.setProperty('--c2', m.c2);
-  $('pBrand').textContent = m.brand; $('pCity').textContent = m.city;
-  const logo = $('logo'); logo.src = m.logo; logo.alt = m.brand; logo.classList.toggle('wide', m.logoWide);
-  $('model').innerHTML = m.model.map(p => `<span class="${p.c}">${p.t}</span>`).join('');
-  $('tagline').innerHTML = m.tagline.join('<br>');
+  poster.style.setProperty('--c', m.cor);
+  poster.style.setProperty('--c2', m.cor2 || m.cor);
+  $('pBrand').textContent = m.marca; $('pCity').textContent = m.cidade || '';
+  const slot = $('logoSlot');
+  slot.innerHTML = m.logo ? `<img alt="${m.marca}" src="${m.logo}"${m.logoLargo ? ' class="wide"' : ''}>` : `<span class="logo-text">${m.marca}</span>`;
+  $('model').innerHTML = `<span class="w${m.italico ? ' it' : ''}">${m.modelo}${m.cursiva ? ' ' : ''}</span>` + (m.cursiva ? `<span class="k it">${m.cursiva}</span>` : '');
+  $('tagline').innerHTML = (m.lema || []).join('<br>');
+  $('stats').style.gridTemplateColumns = `repeat(${Math.max(1, m.stats.length)},1fr)`;
   $('stats').innerHTML = m.stats.map((s, k) => `<div class="stat fx" style="--i:${3 + k}"><small>${s.l}</small><b>0<i>${s.u}</i></b></div>`).join('');
   $('stats').querySelectorAll('b').forEach((b, k) => countTo(b, m.stats[k].v, m.stats[k].d || 0));
-  $('slogan').textContent = m.slogan;
-  $('flag').className = 'flag fx ' + m.flag;
-  $('features').innerHTML = m.features.map(([ic, tx], k) => `<li class="feature fx" style="--i:${5 + k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${I[ic]}</svg><span>${tx}</span></li>`).join('');
-  $('foot').innerHTML = m.foot;
-  $('cta').href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Olá! Tenho interesse no ${m.brand} ${m.model.map(p => p.t).join('').replace(/ /g, ' ')}. Podemos falar?`)}`;
-  $('car').alt = `${m.brand} ${m.model.map(p => p.t).join('')} de perfil`;
-  $('skL').src = m.skL; $('skR').src = m.skR;
+  $('slogan').textContent = m.eslogan || '';
+  $('flag').style.background = FLAGS[m.bandeira] || 'transparent';
+  $('features').innerHTML = (m.icones || []).map(([ic, tx], k) => `<li class="feature fx" style="--i:${5 + k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${I[ic] || I.heritage}</svg><span>${tx}</span></li>`).join('');
+  $('foot').innerHTML = m.rodape || '';
+  $('cta').href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Olá! Tenho interesse no ${m.marca} ${modelName(m)}. Podemos falar?`)}`;
+  $('car').alt = `${m.marca} ${modelName(m)} de perfil`;
+  $('skL').src = m.esbocoL; $('skR').src = m.esbocoR;
   [...$('dots').children].forEach((d, k) => d.setAttribute('aria-current', MODELS[k] === m ? 'true' : 'false'));
-  $('live').textContent = `${m.brand} ${m.model.map(p => p.t).join('')}`;
-  document.querySelector('meta[name="theme-color"]').content = '#f1efeb';
+  $('live').textContent = `${m.marca} ${modelName(m)}`;
   document.querySelectorAll('.fx').forEach(el => { el.classList.remove('fx-in'); void el.offsetWidth; el.classList.add('fx-in'); });
 }
 
@@ -268,7 +301,7 @@ async function go(dir, target = null, fromDx = 0){
 
   if(reduced){
     await $('upper').animate([{opacity:1},{opacity:0}], {duration:180, fill:'forwards'}).finished;
-    fillTexts(m); letters(m.title); $('car').src = m.car;
+    fillTexts(m); letters(m.titulo); fitTitle(); $('car').src = m.carro;
     await $('upper').animate([{opacity:0},{opacity:1}], {duration:240}).finished;
     $('upper').getAnimations().forEach(a => a.cancel());
     busy = false; return;
@@ -296,12 +329,13 @@ async function go(dir, target = null, fromDx = 0){
 
   // 4) troca de conteúdo + cor (a cor funde-se via @property)
   fillTexts(m);
-  letters(m.title).forEach((ch, i) => ch.animate([{transform:'translateY(70%)', opacity:0}, {transform:'translateY(0)', opacity:1}],
+  const fresh = letters(m.titulo); fitTitle();
+  fresh.forEach((ch, i) => ch.animate([{transform:'translateY(70%)', opacity:0}, {transform:'translateY(0)', opacity:1}],
     {duration:520, delay:i * 38, easing:EASE_OUT, fill:'backwards'}));
   ['skL', 'skR'].forEach(k => { $(k).getAnimations().forEach(a => a.cancel());
     $(k).animate([{opacity:0, transform:`translateX(${dir * 30}px)`}, {opacity:1, transform:'translateX(0)'}], {duration:600, easing:EASE_OUT}); });
 
-  car.src = m.car; car.style.opacity = '';
+  car.src = m.carro; car.style.opacity = '';
   await car.animate([
     {transform:`translateX(${dir * W}px)`, filter:'blur(10px)', opacity:0, offset:0},
     {transform:`translateX(${dir * W * .2}px)`, filter:'blur(3px)', opacity:1, offset:.4},
@@ -315,13 +349,17 @@ async function go(dir, target = null, fromDx = 0){
 /* =========================================================
    CONTROLOS — setas, pontos, teclado, swipe, parallax
    ========================================================= */
-MODELS.forEach((m, k) => {
-  const b = document.createElement('button');
-  b.className = 'dot'; b.type = 'button'; b.textContent = m.model.map(p => p.t).join('').replace(/ /g, ' ');
-  b.setAttribute('aria-label', `${m.brand} ${b.textContent}`);
-  b.addEventListener('click', () => go(k > idx ? 1 : -1, k));
-  $('dots').appendChild(b);
-});
+function buildDots(){
+  $('dots').innerHTML = '';
+  MODELS.forEach((m, k) => {
+    const b = document.createElement('button');
+    b.className = 'dot'; b.type = 'button'; b.textContent = modelName(m);
+    b.setAttribute('aria-label', `${m.marca} ${modelName(m)}`);
+    b.addEventListener('click', () => go(k > idx ? 1 : -1, k));
+    $('dots').appendChild(b);
+  });
+}
+addEventListener('resize', () => fitTitle());
 $('prev').addEventListener('click', () => go(-1));
 $('next').addEventListener('click', () => go(1));
 document.addEventListener('keydown', e => {
@@ -376,11 +414,18 @@ if(!reduced && matchMedia('(hover: hover) and (pointer: fine)').matches){
 /* =========================================================
    ARRANQUE — banda cresce, letras sobem, carro entra a rodar
    ========================================================= */
-(function init(){
+(async function init(){
+  try{
+    const r = await fetch('models.json', {cache:'no-cache'});
+    if(r.ok){ const d = await r.json(); if(Array.isArray(d) && d.length) MODELS = d; }
+  }catch(e){}
+  MODELS.forEach(m => [m.logo, m.carro, m.esbocoL, m.esbocoR].filter(Boolean).forEach(s => { const im = new Image(); im.src = s; }));
+  buildDots();
   const m = MODELS[0];
   fillTexts(m);
-  const chars = letters(m.title);
-  $('car').src = m.car;
+  const chars = letters(m.titulo); fitTitle();
+  $('car').src = m.carro;
+  if(document.fonts) document.fonts.ready.then(fitTitle);
   if(reduced) return;
   $('band').animate([{transform:'scaleY(0)'}, {transform:'scaleY(1)'}], {duration:900, easing:EASE_OUT});
   chars.forEach((ch, i) => ch.animate([{transform:'translateY(80%)', opacity:0}, {transform:'translateY(0)', opacity:1}],

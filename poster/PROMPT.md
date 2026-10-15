@@ -46,3 +46,9 @@ Copia y pega esto en cualquier chat de código para generar (o regenerar) la pá
 - Animar solo transform, opacity y filter. Mobile-first (perfecto a 375 px), sin scroll horizontal.
 - Imágenes WebP con transparencia: coche recortado (rembg), bocetos convertidos a trazo gris sobre transparente, logotipos.
 - Accesible: aria-label en botones, foco visible, `aria-live` con el modelo actual.
+
+## Replicable con coches nuevos
+- Los modelos viven en `poster/models.json` (no en el código). La página los lee al cargar; si falla el fetch, usa una copia interna.
+- El nombre gigante se ajusta solo al ancho (nombres largos como "ASTON MARTIN").
+- La parte blanca del modelo es blanca dentro de la banda y negra fuera, para que siempre se lea.
+- Para añadir un coche: `tools/preparar_coche.py poster ...` (ver `tools/README.md`). Recorta la foto de perfil, genera los bocetos a lápiz a partir de fotos de detalle y añade la entrada al JSON.
