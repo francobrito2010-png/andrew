@@ -31,6 +31,10 @@ O 360° está ativo no Ferrari vermelho e no Concept laranja (36 frames cada, ~1
 
 **Tema claro / escuro:** botão sol/lua no cabeçalho. O escuro (dourado) é o padrão; o claro é branco e preto. A escolha fica guardada no navegador do visitante.
 
+## Coleção Poster (`poster/`)
+
+Página extra com estilo de poster de colecionador (McLaren 720S e Ferrari 488 Pista): banda de cor central, nome gigante, esboços laterais, cifras animadas e transição entre modelos. O prompt usado está em `poster/PROMPT.md`. As imagens saem de pósters de referência (demo); as marcas e logótipos pertencem aos respetivos donos.
+
 ## ⚠️ Dados DEMO a substituir
 
 O site do cliente não pôde ser lido durante o desenvolvimento, por isso **todos os dados são de exemplo**:

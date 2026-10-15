@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f1efeb">
+<title>Coleção Poster · Daniel Pinho Automóveis</title>
+<meta name="description" content="Showroom em estilo poster: McLaren 720S e Ferrari 488 Pista.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   BASE
+   ========================================================= */
+@property --c  { syntax:'<color>'; inherits:true; initial-value:#E8701A; }
+@property --c2 { syntax:'<color>'; inherits:true; initial-value:#C24F0E; }
+:root{
+  --paper:#f1efeb; --ink:#111113; --muted:#6f6b64;
+  --bl:35%; --br:65%;                       /* bordas da banda central */
+  --car-w:min(96vw, 1100px);
+  --car-h:calc(var(--car-w) * .27);
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+@media (max-width:600px){ :root{ --bl:30%; --br:70%; } }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.poster{transition:--c .8s var(--ease),--c2 .8s var(--ease)}
+/* grão de papel muito subtil */
+.poster::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+  background-image:radial-gradient(rgba(0,0,0,.06) 1px,transparent 1px);background-size:3px 3px}
+
+/* =========================================================
+   PARTE DE CIMA — banda, esboços, logótipo, título, lema, carro
+   ========================================================= */
+.upper{position:relative;z-index:2;text-align:center;padding-top:clamp(64px,7vw,96px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.band{position:absolute;top:0;bottom:0;left:var(--bl);right:calc(100% - var(--br));z-index:0;
+  background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 88%,#000));transform-origin:top}
+.sketch{position:absolute;top:44px;bottom:calc(var(--car-h) * .55);z-index:0;width:var(--bl);overflow:hidden;
+  transform:translate3d(calc(var(--mx,0) * -14px),calc(var(--my,0) * -8px),0)}
+.sketch img{width:100%;height:100%;object-fit:cover;opacity:.95}
+.sketch--l{left:0}.sketch--l img{object-position:right top}
+.sketch--r{right:0}.sketch--r img{object-position:left top}
+
+.pbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(16px,3vw,40px)}
+.pbar small{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.dots{display:flex;gap:6px;padding:4px;border-radius:99px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.08);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.dot{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);transition:all .3s var(--ease)}
+.dot[aria-current="true"]{background:var(--c);color:#fff}
+
+.logo-slot{position:relative;z-index:2;height:clamp(56px,9vw,130px);display:flex;justify-content:center;align-items:center}
+.logo-slot img{height:100%;width:auto;max-width:calc((var(--br) - var(--bl)) * .8);object-fit:contain}
+.logo-slot img.wide{height:42%}
+
+.title{position:relative;z-index:3;margin-top:clamp(36px,9vw,150px);font-family:'Michroma',sans-serif;font-weight:400;
+  font-size:clamp(38px,11.5vw,186px);line-height:1;letter-spacing:.01em;white-space:nowrap;color:var(--ink)}
+.title .ch{display:inline-block;will-change:transform}
+.model{position:relative;z-index:3;margin-top:clamp(6px,1vw,14px);font-family:'Michroma',sans-serif;font-size:clamp(17px,4.2vw,60px);line-height:1.1;white-space:nowrap}
+.model span{display:inline-block}
+.model .w{color:#fff}
+.model .k{color:var(--ink)}
+.model .it{transform:skewX(-14deg);font-weight:400}
+.tagline{position:relative;z-index:3;margin:clamp(28px,6vw,90px) auto 0;color:#fff;font-weight:600;font-size:clamp(12px,1.6vw,22px);letter-spacing:.14em;line-height:1.75}
+
+.car-wrap{position:relative;z-index:4;width:var(--car-w);margin:clamp(24px,5vw,70px) auto calc(var(--car-h) * -.04);
+  transform:translate3d(calc(var(--mx,0) * 8px),0,0)}
+.car-wrap::after{content:"";position:absolute;left:6%;right:6%;bottom:-2%;height:14%;z-index:-1;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(0,0,0,.55),transparent 70%)}
+.car{width:100%;aspect-ratio:968/262;object-fit:contain;object-position:50% 100%;pointer-events:none;-webkit-user-drag:none}
+.ghost{position:absolute;inset:0;z-index:5}
+
+.arrow{position:absolute;z-index:6;bottom:calc(var(--car-h) * .5);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.1);box-shadow:0 8px 24px -10px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+.arrow:hover{background:#fff}.arrow:active{transform:scale(.92)}
+.arrow svg{width:18px;height:18px}
+.arrow--prev{left:clamp(8px,2vw,32px)}.arrow--next{right:clamp(8px,2vw,32px)}
+
+/* =========================================================
+   PARTE DE BAIXO — "estrada" em trapézio com cifras e ícones
+   ========================================================= */
+.lower{position:relative;z-index:1;color:#fff;text-align:center;
+  padding:calc(clamp(56px,9vw,130px) + var(--car-h) * .04) clamp(16px,4vw,48px) clamp(40px,5vw,64px);
+  background:linear-gradient(180deg,var(--c) 0%,var(--c2) 100%);
+  clip-path:polygon(var(--bl) 0,var(--br) 0,100% clamp(56px,9vw,130px),100% 100%,0 100%,0 clamp(56px,9vw,130px))}
+.inner{max-width:900px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr)}
+.stat{padding:4px 8px}
+.stat + .stat{border-left:1px solid rgba(255,255,255,.4)}
+.stat small{display:block;font-size:clamp(10px,1.2vw,14px);font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+.stat b{display:block;font-weight:300;font-size:clamp(32px,6.2vw,66px);line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat b i{font-style:normal;font-size:.3em;font-weight:500;margin-left:4px;letter-spacing:.04em}
+.rule{height:1px;background:rgba(255,255,255,.4);margin:clamp(20px,3vw,34px) 0}
+.slogan{font-size:clamp(10px,1.35vw,16px);font-weight:500;letter-spacing:.42em;text-transform:uppercase}
+.flag{width:clamp(110px,16vw,190px);height:7px;margin:18px auto 0;border-radius:2px}
+.flag.uk{background:linear-gradient(180deg,#c8102e 0 30%,#fff 30% 42%,#012169 42% 100%)}
+.flag.it{background:linear-gradient(90deg,#008c45 0 33.3%,#f4f5f0 33.3% 66.6%,#cd212a 66.6%)}
+.features{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:24px 0;margin-top:clamp(28px,4vw,46px)}
+@media (min-width:700px){.features{grid-template-columns:repeat(4,1fr)}}
+.feature{display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 10px;font-size:clamp(10px,1.1vw,13px);font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1.5}
+@media (min-width:700px){.feature + .feature{border-left:1px solid rgba(255,255,255,.35)}}
+.feature svg{width:clamp(38px,4.6vw,56px);height:clamp(38px,4.6vw,56px)}
+.foot{margin-top:clamp(30px,4vw,50px);font-size:clamp(11px,1.3vw,16px);letter-spacing:.55em;text-transform:uppercase;line-height:1.9}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:clamp(28px,4vw,44px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;border-radius:99px;font-weight:700;font-size:14px;letter-spacing:.04em;transition:transform .15s,background .2s,color .2s}
+.btn:active{transform:scale(.97)}
+.btn--solid{background:#fff;color:var(--c2)}
+.btn--line{border:1px solid rgba(255,255,255,.7)}
+.btn--line:hover{background:rgba(255,255,255,.12)}
+
+/* animação de entrada de texto */
+.fx-in{animation:fxUp .6s var(--ease) both;animation-delay:calc(var(--i,0) * 60ms)}
+@keyframes fxUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .poster{transition:none}
+  .sketch,.car-wrap{transform:none}
+  .fx-in{animation:fxFade .3s both}
+  @keyframes fxFade{from{opacity:0}to{opacity:1}}
+}
+</style>
+</head>
+<body>
+<main class="poster" id="poster">
+  <p class="sr-only" aria-live="polite" id="live"></p>
+
+  <section class="upper" id="upper" aria-label="Modelo em destaque — deslize ou use as setas para mudar">
+    <div class="band" id="band" aria-hidden="true"></div>
+    <div class="sketch sketch--l" aria-hidden="true"><img id="skL" alt=""></div>
+    <div class="sketch sketch--r" aria-hidden="true"><img id="skR" alt=""></div>
+
+    <header class="pbar">
+      <small id="pBrand"></small>
+      <nav class="dots" id="dots" aria-label="Escolher modelo"></nav>
+      <small id="pCity"></small>
+    </header>
+
+    <div class="logo-slot fx" style="--i:0"><img id="logo" alt=""></div>
+    <h1 class="title" id="title" aria-label=""></h1>
+    <p class="model fx" style="--i:1" id="model"></p>
+    <p class="tagline fx" style="--i:2" id="tagline"></p>
+
+    <div class="car-wrap" id="carWrap"><img class="car" id="car" alt="" draggable="false"></div>
+
+    <button class="arrow arrow--prev" id="prev" aria-label="Modelo anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="arrow arrow--next" id="next" aria-label="Modelo seguinte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </section>
+
+  <section class="lower" aria-label="Ficha técnica">
+    <div class="inner">
+      <div class="stats" id="stats"></div>
+      <div class="rule"></div>
+      <p class="slogan fx" style="--i:3" id="slogan"></p>
+      <div class="flag fx" style="--i:4" id="flag"></div>
+      <ul class="features" id="features"></ul>
+      <p class="foot fx" style="--i:9" id="foot"></p>
+      <div class="actions fx" style="--i:10">
+        <a class="btn btn--solid" id="cta" href="#" target="_blank" rel="noopener">Agendar visita</a>
+        <a class="btn btn--line" href="../index.html">Voltar ao showroom</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+'use strict';
+
+/* =========================================================
+   DADOS — os dois modelos do poster
+   ========================================================= */
+const WHATSAPP = '351900000000'; // DEMO — o mesmo número do showroom principal
+const I = {
+  engine:'<path d="M7 8h7l2 2h2v3h2v-2h1v6h-1v-2h-2v3h-3l-2 2H8l-2-2H4v-3H3v-4h1v2h2V9z"/><path d="M9 5h5M11.5 5v3"/>',
+  gauge:'<path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1.3" fill="currentColor"/><path d="M6.5 11.5l1 .6M12 7v1.2M17.5 11.5l-1 .6"/>',
+  aero:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+  wheel:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M3.5 10.5c3 1 5.5 1 8.5 1s5.5 0 8.5-1M12 14.5V21"/>',
+  fiber:'<path d="M4 4l16 16M4 10l10 10M10 4l10 10M4 16l4 4M16 4l4 4"/>',
+  heritage:'<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8-4.3-4.1 5.9-.9z"/>'
+};
+const MODELS = [
+  { id:'720s', brand:'McLaren', title:'McLAREN', city:'Woking', logo:'img/mclaren-logo.webp', logoWide:true,
+    model:[{t:'720S', c:'w it'}], tagline:['DRIVEN','BY','PERFECTION.'],
+    c:'#E8701A', c2:'#C24F0E', car:'img/mclaren-car.webp', skL:'img/mclaren-sketch-l.webp', skR:'img/mclaren-sketch-r.webp',
+    stats:[{l:'Potência', v:720, u:'cv'}, {l:'Velocidade máx.', v:341, u:'km/h'}, {l:'0-100 km/h', v:2.9, u:'s', d:1}],
+    slogan:'Pure performance. Relentless innovation.', flag:'uk',
+    features:[['engine','Motor V8 4.0<br>biturbo'], ['fiber','Fibra de<br>carbono'], ['aero','Aerodinâmica<br>avançada'], ['wheel','Controlo<br>preciso']],
+    foot:'McLaren<br>desde 1963' },
+  { id:'488pista', brand:'Ferrari', title:'FERRARI', city:'Maranello', logo:'img/ferrari-logo.webp', logoWide:false,
+    model:[{t:'488 ', c:'w'}, {t:'PISTA', c:'k it'}], tagline:['BUILT','FOR','PASSION.'],
+    c:'#C8161D', c2:'#8C0D12', car:'img/ferrari-car.webp', skL:'img/ferrari-sketch-l.webp', skR:'img/ferrari-sketch-r.webp',
+    stats:[{l:'Potência', v:720, u:'cv'}, {l:'Velocidade máx.', v:340, u:'km/h'}, {l:'0-100 km/h', v:2.85, u:'s', d:2}],
+    slogan:'Pure performance. Italian soul.', flag:'it',
+    features:[['engine','Motor V8 3.9<br>biturbo'], ['gauge','ADN de<br>competição'], ['wheel','Condução de<br>precisão'], ['heritage','Herança<br>intemporal']],
+    foot:'Ferrari<br>desde 1947' }
+];
+
+const $ = id => document.getElementById(id);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const poster = $('poster');
+let idx = 0, busy = false;
+const mod = i => (i % MODELS.length + MODELS.length) % MODELS.length;
+const num = (v, d = 0) => v.toLocaleString('pt-PT', {minimumFractionDigits:d, maximumFractionDigits:d});
+
+// pré-carregar tudo (são poucas imagens)
+MODELS.forEach(m => [m.logo, m.car, m.skL, m.skR].forEach(s => { const im = new Image(); im.src = s; }));
+
+/* =========================================================
+   RENDER — preenche os textos de um modelo
+   ========================================================= */
+function letters(text){
+  $('title').setAttribute('aria-label', text);
+  $('title').innerHTML = [...text].map((ch, i) => `<span class="ch" aria-hidden="true" style="--i:${i}">${ch}</span>`).join('');
+  return [...$('title').children];
+}
+function countTo(el, to, d, dur = 1000){
+  if(reduced){ el.firstChild.nodeValue = num(to, d); return; }
+  const t0 = performance.now();
+  const step = t => {
+    const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    el.firstChild.nodeValue = num(to * e, d);
+    if(p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function fillTexts(m){
+  poster.style.setProperty('--c', m.c);
+  poster.style.setProperty('--c2', m.c2);
+  $('pBrand').textContent = m.brand; $('pCity').textContent = m.city;
+  const logo = $('logo'); logo.src = m.logo; logo.alt = m.brand; logo.classList.toggle('wide', m.logoWide);
+  $('model').innerHTML = m.model.map(p => `<span class="${p.c}">${p.t}</span>`).join('');
+  $('tagline').innerHTML = m.tagline.join('<br>');
+  $('stats').innerHTML = m.stats.map((s, k) => `<div class="stat fx" style="--i:${3 + k}"><small>${s.l}</small><b>0<i>${s.u}</i></b></div>`).join('');
+  $('stats').querySelectorAll('b').forEach((b, k) => countTo(b, m.stats[k].v, m.stats[k].d || 0));
+  $('slogan').textContent = m.slogan;
+  $('flag').className = 'flag fx ' + m.flag;
+  $('features').innerHTML = m.features.map(([ic, tx], k) => `<li class="feature fx" style="--i:${5 + k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${I[ic]}</svg><span>${tx}</span></li>`).join('');
+  $('foot').innerHTML = m.foot;
+  $('cta').href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Olá! Tenho interesse no ${m.brand} ${m.model.map(p => p.t).join('').replace(/ /g, ' ')}. Podemos falar?`)}`;
+  $('car').alt = `${m.brand} ${m.model.map(p => p.t).join('')} de perfil`;
+  $('skL').src = m.skL; $('skR').src = m.skR;
+  [...$('dots').children].forEach((d, k) => d.setAttribute('aria-current', MODELS[k] === m ? 'true' : 'false'));
+  $('live').textContent = `${m.brand} ${m.model.map(p => p.t).join('')}`;
+  document.querySelector('meta[name="theme-color"]').content = '#f1efeb';
+  document.querySelectorAll('.fx').forEach(el => { el.classList.remove('fx-in'); void el.offsetWidth; el.classList.add('fx-in'); });
+}
+
+/* =========================================================
+   TRANSIÇÃO entre modelos
+   ========================================================= */
+const EASE_IN = 'cubic-bezier(.55,0,.85,.35)', EASE_OUT = 'cubic-bezier(.22,.9,.3,1)';
+async function go(dir, target = null, fromDx = 0){
+  if(busy) return;
+  const next = target ?? mod(idx + dir);
+  if(next === idx) return;
+  busy = true; idx = next;
+  const m = MODELS[idx], W = innerWidth;
+
+  if(reduced){
+    await $('upper').animate([{opacity:1},{opacity:0}], {duration:180, fill:'forwards'}).finished;
+    fillTexts(m); letters(m.title); $('car').src = m.car;
+    await $('upper').animate([{opacity:0},{opacity:1}], {duration:240}).finished;
+    $('upper').getAnimations().forEach(a => a.cancel());
+    busy = false; return;
+  }
+
+  // 1) letras do título saem para cima, uma a uma
+  const old = [...$('title').children];
+  old.forEach((ch, i) => ch.animate([{transform:'translateY(0)', opacity:1}, {transform:'translateY(-70%)', opacity:0}],
+    {duration:260, delay:i * 22, easing:EASE_IN, fill:'forwards'}));
+
+  // 2) o carro acelera para fora com desenfoque + 2 rastos
+  const car = $('car'), wrap = $('carWrap');
+  [1, .35, .15].forEach((op, g) => {
+    const gh = car.cloneNode(); gh.removeAttribute('id'); gh.classList.add('ghost'); wrap.appendChild(gh);
+    gh.animate([{transform:`translateX(${fromDx}px)`, filter:'blur(0px)', opacity:op},
+                {transform:`translateX(${-dir * W * 1.15}px) scaleX(1.08)`, filter:'blur(14px)', opacity:0}],
+      {duration:520, delay:g * 40, easing:EASE_IN, fill:'both'}).finished.then(() => gh.remove());
+  });
+  car.style.opacity = '0'; car.style.transform = '';
+
+  // 3) esboços saem com parallax
+  ['skL', 'skR'].forEach(k => $(k).animate([{opacity:1, transform:'translateX(0)'}, {opacity:0, transform:`translateX(${-dir * 30}px)`}], {duration:300, fill:'forwards', easing:EASE_IN}));
+
+  await new Promise(r => setTimeout(r, 300));
+
+  // 4) troca de conteúdo + cor (a cor funde-se via @property)
+  fillTexts(m);
+  letters(m.title).forEach((ch, i) => ch.animate([{transform:'translateY(70%)', opacity:0}, {transform:'translateY(0)', opacity:1}],
+    {duration:520, delay:i * 38, easing:EASE_OUT, fill:'backwards'}));
+  ['skL', 'skR'].forEach(k => { $(k).getAnimations().forEach(a => a.cancel());
+    $(k).animate([{opacity:0, transform:`translateX(${dir * 30}px)`}, {opacity:1, transform:'translateX(0)'}], {duration:600, easing:EASE_OUT}); });
+
+  car.src = m.car; car.style.opacity = '';
+  await car.animate([
+    {transform:`translateX(${dir * W}px)`, filter:'blur(10px)', opacity:0, offset:0},
+    {transform:`translateX(${dir * W * .2}px)`, filter:'blur(3px)', opacity:1, offset:.4},
+    {transform:`translateX(${-dir * 18}px)`, filter:'blur(0px)', opacity:1, offset:.72},
+    {transform:`translateX(${dir * 5}px)`, filter:'blur(0px)', opacity:1, offset:.87},
+    {transform:'translateX(0px)', filter:'blur(0px)', opacity:1, offset:1}
+  ], {duration:700, easing:EASE_OUT}).finished;
+  busy = false;
+}
+
+/* =========================================================
+   CONTROLOS — setas, pontos, teclado, swipe, parallax
+   ========================================================= */
+MODELS.forEach((m, k) => {
+  const b = document.createElement('button');
+  b.className = 'dot'; b.type = 'button'; b.textContent = m.model.map(p => p.t).join('').replace(/ /g, ' ');
+  b.setAttribute('aria-label', `${m.brand} ${b.textContent}`);
+  b.addEventListener('click', () => go(k > idx ? 1 : -1, k));
+  $('dots').appendChild(b);
+});
+$('prev').addEventListener('click', () => go(-1));
+$('next').addEventListener('click', () => go(1));
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight'){ e.preventDefault(); go(1); }
+  if(e.key === 'ArrowLeft'){ e.preventDefault(); go(-1); }
+});
+
+let drag = null;
+const upper = $('upper');
+upper.addEventListener('pointerdown', e => {
+  if(busy || e.button > 0 || e.target.closest('button,a')) return;
+  drag = {id:e.pointerId, x:e.clientX, y:e.clientY, dx:0, axis:null, t:e.timeStamp};
+});
+upper.addEventListener('pointermove', e => {
+  if(!drag || e.pointerId !== drag.id) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if(!drag.axis){
+    if(Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+    drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+    if(drag.axis === 'y'){ drag = null; return; }
+    upper.setPointerCapture(e.pointerId);
+  }
+  drag.dx = dx;
+  $('car').style.transform = `translateX(${dx * .7}px)`;          // o carro segue o dedo
+});
+function endDrag(e){
+  if(!drag || e.pointerId !== drag.id) return;
+  const d = drag; drag = null;
+  if(d.axis !== 'x') return;
+  const v = Math.abs(d.dx) / Math.max(1, e.timeStamp - d.t);
+  if(Math.abs(d.dx) > innerWidth * .18 || (v > .5 && Math.abs(d.dx) > 30)) go(d.dx < 0 ? 1 : -1, null, d.dx * .7);
+  else {
+    const car = $('car'), from = d.dx * .7; car.style.transform = '';
+    if(!reduced) car.animate([{transform:`translateX(${from}px)`}, {transform:`translateX(${-from * .12}px)`, offset:.65}, {transform:'translateX(0)'}], {duration:420, easing:EASE_OUT});
+  }
+}
+upper.addEventListener('pointerup', endDrag);
+upper.addEventListener('pointercancel', endDrag);
+
+// parallax suave (só rato)
+if(!reduced && matchMedia('(hover: hover) and (pointer: fine)').matches){
+  let raf = 0;
+  addEventListener('pointermove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      poster.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(3));
+      poster.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(3));
+    });
+  });
+}
+
+/* =========================================================
+   ARRANQUE — banda cresce, letras sobem, carro entra a rodar
+   ========================================================= */
+(function init(){
+  const m = MODELS[0];
+  fillTexts(m);
+  const chars = letters(m.title);
+  $('car').src = m.car;
+  if(reduced) return;
+  $('band').animate([{transform:'scaleY(0)'}, {transform:'scaleY(1)'}], {duration:900, easing:EASE_OUT});
+  chars.forEach((ch, i) => ch.animate([{transform:'translateY(80%)', opacity:0}, {transform:'translateY(0)', opacity:1}],
+    {duration:620, delay:250 + i * 50, easing:EASE_OUT, fill:'backwards'}));
+  ['skL', 'skR'].forEach(k => $(k).animate([{opacity:0}, {opacity:1}], {duration:900, delay:300, fill:'backwards'}));
+  $('car').animate([
+    {transform:`translateX(${innerWidth}px)`, filter:'blur(10px)', opacity:0, offset:0},
+    {transform:'translateX(-20px)', filter:'blur(0px)', opacity:1, offset:.75},
+    {transform:'translateX(0px)', filter:'blur(0px)', opacity:1, offset:1}
+  ], {duration:1000, delay:350, easing:EASE_OUT, fill:'backwards'});
+})();
+})();
+</script>
+</body>
+</html>
