@@ -72,7 +72,18 @@ Para testar localmente (o `fetch` precisa de servidor): `python3 -m http.server`
 
 ## Cartões de visita com QR (`cartao/` + `vendedor/`)
 
-- **`cartao/`** — cartão 85 × 55 mm: frente verde igual para todos, verso com o QR pessoal do vendedor. Botão para imprimir folha A4 (10 cartões, frente/verso alinhados em duplex) ou guardar como PDF para a gráfica.
-- **`vendedor/?v=<id>`** — perfil que o QR abre: anos de experiência, carros entregues, carros que vendeu (lidos do `cars.json`), WhatsApp, ligar e "Guardar contacto" (vCard).
-- **Dados em `vendedores.js`** (DEMO). Novo vendedor = copiar um bloco e mudar o `id`. O QR usa `STAND_INFO.site`, por isso tem de ser o domínio final antes de imprimir.
+- **`cartao/`** — cartão 85 × 55 mm, verde mate. Frente: logótipo do stand. Verso: nome, cargo, telefone, morada, website, horário e o QR pessoal do vendedor. Imprime folha A4 com 10 cartões (frente/verso alinhados) ou guarda em PDF.
+- **`vendedor/?v=<id>`** — perfil que o QR abre: WhatsApp, ligar, guardar contacto (vCard), morada no Maps e link para o stock no site oficial.
+- **Dados em `vendedores.js`** — só informação pública. O QR usa `STAND_INFO.site`: tem de ser o domínio final antes de imprimir.
+- Logótipo: `assets/marca/logo-branco.png`, recortado de uma captura (1200 px). Para a gráfica, pedir ao stand o logótipo em vetor (SVG/PDF/AI).
 - QR gerado localmente com `assets/qrcode.js` (qrcode-generator, MIT, Kazuhiko Arase).
+
+### Fontes dos dados (verificar antes de imprimir)
+
+| Dado | Fonte |
+|---|---|
+| Equipa: Daniel Pinho, Nelson Costa, João Maciel | danielpinhoautomoveis.pt/empresa |
+| Cargos (Gestor Comercial / Vendas) | danielpinho.standvirtual.com, site oficial |
+| Morada, telefone +351 964 619 165, fundação 2020 | elferspot.com (página do dealer) |
+| Horário 09:00–13:00 · 14:30–19:00 | piscapisca.pt |
+| **Por confirmar** | telemóvel e email direto de cada vendedor (agora usam o geral do stand) |

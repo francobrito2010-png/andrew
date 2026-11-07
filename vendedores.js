@@ -1,44 +1,24 @@
-// Vendedores do stand — cada um tem o seu QR e o seu perfil em vendedor/?v=<id>
-// ⚠️ DEMO: nomes, telefones e números inventados. Substituir pelos dados reais.
-// Para adicionar um vendedor: copiar um bloco, mudar o "id" (sem espaços nem acentos)
-// e pôr a foto em assets/vendedores/<id>.webp (opcional — sem foto mostra as iniciais).
+// Dados do stand e da equipa — APENAS informação pública verificada.
+// Fontes: danielpinhoautomoveis.pt/empresa (equipa), danielpinho.standvirtual.com (cargos),
+// elferspot.com (morada, telefone, fundação). Ver README → "Fontes dos dados".
+// ⚠️ POR CONFIRMAR com o stand: telemóvel/email direto de cada vendedor
+//    (por agora todos usam o contacto geral do stand).
 window.STAND_INFO = {
   nome: 'Daniel Pinho',
   sub: 'Automóveis',
-  site: 'https://francobrito2010-png.github.io/andrew/',
-  morada: 'Morada a confirmar',          // DEMO
-  horario: 'Seg–Sex 9h–19h · Sáb 9h–13h' // DEMO
+  logo: 'assets/marca/logo-branco.png',     // caminho a partir da raiz do site
+  site: 'https://francobrito2010-png.github.io/andrew/', // onde fica alojado o perfil (o QR aponta aqui)
+  web: 'www.danielpinhoautomoveis.pt',
+  webUrl: 'https://www.danielpinhoautomoveis.pt/',
+  morada: 'Rua Capitão Ramires 14, 1000-085 Lisboa',
+  telefone: '+351 964 619 165',
+  whatsapp: '351964619165',
+  horario: '09:00–13:00 · 14:30–19:00'
 };
 
 window.VENDEDORES = [
-  {
-    id: 'joao-silva',
-    nome: 'João Silva',
-    cargo: 'Consultor Comercial Sénior',
-    desde: 2012,            // ano em que começou a vender carros → calcula os anos de experiência
-    vendidos: 640,          // carros entregues (aprox.)
-    telefone: '+351 910 000 001',
-    whatsapp: '351910000001',
-    email: 'joao@danielpinho.pt',
-    foto: '',               // ex.: '../assets/vendedores/joao-silva.webp'
-    especialidade: 'Desportivos e premium',
-    frase: 'Encontro-lhe o carro certo — e trato de tudo até à entrega.',
-    carros: ['ferrari-458-spider-rosso', 'aston-martin-vantage-roadster', 'ferrari-458-spider-blu'],
-    demo: true
-  },
-  {
-    id: 'ana-costa',
-    nome: 'Ana Costa',
-    cargo: 'Consultora Comercial',
-    desde: 2018,
-    vendidos: 310,
-    telefone: '+351 910 000 002',
-    whatsapp: '351910000002',
-    email: 'ana@danielpinho.pt',
-    foto: '',
-    especialidade: 'Financiamento e retoma',
-    frase: 'Simplifico o financiamento para que só tenha de escolher a cor.',
-    carros: ['concept-gt-arancio', 'ferrari-458-spider-giallo', 'concept-gt-grigio'],
-    demo: true
-  }
+  { id: 'daniel-pinho',  nome: 'Daniel Pinho',  cargo: 'Gestor Comercial', telefone: '', whatsapp: '', email: '', foto: '' },
+  { id: 'nelson-costa',  nome: 'Nelson Costa',  cargo: 'Gestor Comercial', telefone: '', whatsapp: '', email: '', foto: '' },
+  { id: 'joao-maciel',   nome: 'João Maciel',   cargo: 'Vendas',           telefone: '', whatsapp: '', email: '', foto: '' }
 ];
+// Campos vazios → usa o contacto geral do stand. Quando houver o número direto, basta preenchê-lo.
