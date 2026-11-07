@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartões de Visita · Daniel Pinho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0d3b2c; --green-2:#14523d; --green-3:#1d6b50; --deep:#072319;
+  --gold:#d9b46a; --gold-2:#f0d79c; --cream:#f5f1e8;
+  --bg:#e9e6de; --ink:#14201b; --muted:#5f6b65;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding:24px 16px 48px}
+.tools{max-width:820px;margin:0 auto 24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tools h1{font-size:20px;font-weight:800;flex:1 1 100%}
+.tools p{font-size:13px;color:var(--muted);flex:1 1 100%;margin-bottom:6px}
+select,button,.link{font:600 14px Manrope,sans-serif;min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--green);background:#fff;color:var(--green);cursor:pointer;display:inline-flex;align-items:center}
+button.primary{background:var(--green);color:var(--cream)}
+.preview{max-width:820px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;justify-items:center}
+.preview figure{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.preview figcaption{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.scale{width:100%;max-width:400px;aspect-ratio:85/55;position:relative}
+.scale .card{position:absolute;top:0;left:0;transform-origin:0 0;box-shadow:0 1.5mm 5mm rgba(0,0,0,.25)}
+
+/* ===== Cartão: 85 × 55 mm ===== */
+.card{width:85mm;height:55mm;border-radius:3mm;overflow:hidden;position:relative;color:var(--cream);
+  background:radial-gradient(130% 120% at 15% 0%,var(--green-3) 0%,var(--green) 50%,var(--deep) 100%)}
+.card::before{content:"";position:absolute;inset:0;opacity:.07;
+  background:repeating-linear-gradient(135deg,#fff 0 .25mm,transparent .25mm 2.2mm)}
+.card .edge{position:absolute;left:0;right:0;bottom:0;height:1.4mm;background:linear-gradient(90deg,var(--gold),var(--gold-2),var(--gold))}
+
+/* Frente */
+.front{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.front .mono{width:12mm;height:12mm;border:.35mm solid var(--gold);border-radius:50%;display:grid;place-items:center;
+  font:600 6mm/1 "Cormorant Garamond",serif;color:var(--gold);margin-bottom:3.2mm;position:relative}
+.front .name{font-weight:800;font-size:5.4mm;letter-spacing:.32em;text-transform:uppercase;padding-left:.32em}
+.front .rule{width:16mm;height:.3mm;background:var(--gold);margin:2.2mm 0 1.8mm}
+.front .sub{font-size:2.5mm;letter-spacing:.6em;text-transform:uppercase;color:var(--gold);padding-left:.6em;font-weight:600}
+.front .tag{position:absolute;bottom:4mm;font-size:1.9mm;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+
+/* Verso */
+.back{display:flex;align-items:center;gap:5mm;padding:0 6mm}
+.back .qr{flex:none;width:23mm;height:23mm;background:var(--cream);border-radius:2mm;padding:1.6mm;position:relative}
+.back .qr svg{width:100%;height:100%;display:block}
+.back .who{flex:1;min-width:0;position:relative}
+.back .who b{display:block;font-size:4.2mm;font-weight:800;line-height:1.15}
+.back .who .role{font-size:2.3mm;color:var(--gold);font-weight:600;margin-top:.8mm}
+.back .who .tel{font-size:2.6mm;margin-top:3mm;font-weight:600}
+.back .who .cta{font-size:2mm;margin-top:3mm;opacity:.75;line-height:1.35}
+.back .who .cta strong{color:var(--gold-2);font-weight:700}
+.back .logo{position:absolute;top:3.4mm;right:5mm;font-size:1.8mm;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;opacity:.85}
+
+.note{max-width:820px;margin:28px auto 0;font-size:13px;color:var(--muted);line-height:1.55}
+.note b{color:var(--ink)}
+.sheet{display:none}
+
+/* ===== Impressão: 2 folhas A4 (frentes / versos), 10 cartões cada ===== */
+@page{size:A4;margin:0}
+@media print{
+  body{background:#fff;padding:0}
+  .tools,.preview,.note{display:none}
+  .sheet{display:grid;grid-template-columns:repeat(2,85mm);grid-auto-rows:55mm;gap:0;
+    width:210mm;height:297mm;padding:13.5mm 20mm;align-content:start;justify-content:center;break-after:page}
+  .sheet .card{border-radius:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sheet.backs{direction:rtl}  /* espelha colunas para frente/verso alinhar em duplex (borda longa) */
+  .sheet.backs .card{direction:ltr}
+}
+</style>
+</head>
+<body>
+
+<div class="tools">
+  <h1>Cartões de visita · Daniel Pinho Automóveis</h1>
+  <p>A frente é igual para todos. O verso leva o QR pessoal de cada vendedor, que abre o seu perfil.</p>
+  <select id="sel" aria-label="Vendedor"></select>
+  <a class="link" id="open" target="_blank" rel="noopener">Abrir perfil ↗</a>
+  <button class="primary" id="print" type="button">Imprimir folha A4 (10 cartões)</button>
+</div>
+
+<div class="preview">
+  <figure><div class="scale"><div class="card front" id="pf"></div></div><figcaption>Frente</figcaption></figure>
+  <figure><div class="scale"><div class="card back" id="pb"></div></div><figcaption>Verso</figcaption></figure>
+</div>
+
+<p class="note">
+  <b>Para a gráfica:</b> formato 85 × 55 mm, papel 350 g mate com laminação soft-touch fica premium; detalhes dourados podem ir em hot-stamping.
+  Ao imprimir em casa, escolha "Tamanho real / 100 %", frente e verso pela borda longa.
+  Para PDF: Imprimir → Guardar como PDF.<br>
+  <b>O QR aponta para:</b> <code id="url"></code> — teste-o com o telemóvel antes de mandar imprimir.
+</p>
+
+<div class="sheet fronts" id="sf"></div>
+<div class="sheet backs" id="sb"></div>
+
+<script src="../assets/qrcode.js"></script>
+<script src="../vendedores.js"></script>
+<script>
+const S = window.STAND_INFO, V = window.VENDEDORES;
+const $ = s => document.getElementById(s);
+const profileUrl = v => `${S.site}vendedor/?v=${v.id}`;
+
+const frontHTML = () => `
+  <div class="mono">DP</div>
+  <div class="name">${S.nome}</div>
+  <div class="rule"></div>
+  <div class="sub">${S.sub}</div>
+  <div class="tag">Concessionário Automóvel</div>
+  <div class="edge"></div>`;
+
+const qrSVG = text => {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  return q.createSvgTag({cellSize: 4, margin: 0, scalable: true});
+};
+
+const backHTML = v => `
+  <div class="logo">Daniel Pinho</div>
+  <div class="qr">${qrSVG(profileUrl(v))}</div>
+  <div class="who">
+    <b>${v.nome}</b>
+    <div class="role">${v.cargo}</div>
+    <div class="tel">${v.telefone}</div>
+    <div class="cta"><strong>Aponte a câmara</strong><br>e conheça o seu consultor</div>
+  </div>
+  <div class="edge"></div>`;
+
+// Escala o cartão (em mm) para caber na pré-visualização
+function fit(){
+  document.querySelectorAll('.scale').forEach(box => {
+    const card = box.firstElementChild;
+    card.style.transform = `scale(${box.clientWidth / card.offsetWidth})`;
+  });
+}
+
+function render(){
+  const v = V.find(x => x.id === $('sel').value);
+  $('pf').innerHTML = frontHTML();
+  $('pb').innerHTML = backHTML(v);
+  $('open').href = `../vendedor/?v=${v.id}`;
+  $('url').textContent = profileUrl(v);
+  $('sf').innerHTML = Array(10).fill(`<div class="card front">${frontHTML()}</div>`).join('');
+  $('sb').innerHTML = Array(10).fill(`<div class="card back">${backHTML(v)}</div>`).join('');
+  history.replaceState(null, '', `?v=${v.id}`);
+  fit();
+}
+
+$('sel').innerHTML = V.map(v => `<option value="${v.id}">${v.nome}</option>`).join('');
+const start = new URLSearchParams(location.search).get('v');
+if (V.some(v => v.id === start)) $('sel').value = start;
+$('sel').onchange = render;
+$('print').onclick = () => window.print();
+addEventListener('resize', fit);
+document.fonts && document.fonts.ready.then(fit);
+render();
+</script>
+</body>
+</html>

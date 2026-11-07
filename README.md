@@ -69,3 +69,10 @@ Se um carro tiver `"frames": ["cars/bmw/01.png", …]` (24–36 imagens tiradas 
 Settings → Pages → Deploy from branch → escolher o branch e a pasta raiz. O showroom fica em `https://francobrito2010-png.github.io/andrew/`.
 
 Para testar localmente (o `fetch` precisa de servidor): `python3 -m http.server` na raiz do repositório.
+
+## Cartões de visita com QR (`cartao/` + `vendedor/`)
+
+- **`cartao/`** — cartão 85 × 55 mm: frente verde igual para todos, verso com o QR pessoal do vendedor. Botão para imprimir folha A4 (10 cartões, frente/verso alinhados em duplex) ou guardar como PDF para a gráfica.
+- **`vendedor/?v=<id>`** — perfil que o QR abre: anos de experiência, carros entregues, carros que vendeu (lidos do `cars.json`), WhatsApp, ligar e "Guardar contacto" (vCard).
+- **Dados em `vendedores.js`** (DEMO). Novo vendedor = copiar um bloco e mudar o `id`. O QR usa `STAND_INFO.site`, por isso tem de ser o domínio final antes de imprimir.
+- QR gerado localmente com `assets/qrcode.js` (qrcode-generator, MIT, Kazuhiko Arase).

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Consultor · Daniel Pinho Automóveis</title>
+<meta name="theme-color" content="#0d3b2c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0d3b2c; --green-2:#14523d; --green-3:#1d6b50;
+  --gold:#d9b46a; --cream:#f5f1e8; --ink:#14201b; --muted:#5f6b65;
+  --card:#ffffff; --line:#e4e0d6; --wa:#25D366;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.hero{background:radial-gradient(120% 90% at 50% 0%,var(--green-3) 0%,var(--green) 60%,#082a1f 100%);color:var(--cream);padding:28px 16px 84px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -10% -1px;height:60px;background:var(--cream);border-radius:50% 50% 0 0/100% 100% 0 0}
+.brand{display:inline-flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:26px}
+.brand b{font-size:15px;letter-spacing:.32em;text-transform:uppercase;font-weight:800}
+.brand span{font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold)}
+.brand i{display:block;width:34px;height:1px;background:var(--gold);margin:6px 0 4px}
+.avatar{width:112px;height:112px;border-radius:50%;margin:0 auto 14px;border:3px solid var(--gold);background:var(--green-2) center/cover no-repeat;display:grid;place-items:center;font-size:38px;font-weight:800;color:var(--gold);position:relative;z-index:1}
+h1{font-size:clamp(26px,7vw,34px);font-weight:800;letter-spacing:-.01em}
+.role{color:var(--gold);font-weight:600;font-size:14px;margin-top:4px}
+.where{opacity:.8;font-size:13px;margin-top:2px}
+main{max-width:520px;margin:-58px auto 0;padding:0 16px 40px;position:relative;z-index:2}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(13,59,44,.12);overflow:hidden}
+.stat{padding:16px 6px;text-align:center}
+.stat+.stat{border-left:1px solid var(--line)}
+.stat strong{display:block;font-size:24px;font-weight:800;color:var(--green)}
+.stat small{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.quote{margin:18px 4px 0;font-size:15px;line-height:1.5;color:var(--muted);text-align:center;font-style:italic}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:14px;font-weight:700;font-size:15px;border:0;cursor:pointer;font-family:inherit}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.wa{background:var(--wa);color:#04210f;grid-column:1/-1}
+.btn.call{background:var(--green);color:var(--cream)}
+.btn.save{background:var(--card);color:var(--green);border:1.5px solid var(--green)}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:32px 4px 12px;font-weight:700}
+.cars{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.car{background:var(--card);border-radius:14px;padding:10px 10px 12px;box-shadow:0 4px 14px rgba(13,59,44,.07)}
+.car img{width:100%;aspect-ratio:16/9;object-fit:contain}
+.car b{display:block;font-size:13px;margin-top:6px}
+.car span{font-size:12px;color:var(--muted)}
+.info{background:var(--card);border-radius:16px;padding:6px 16px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;font-size:14px}
+.row+.row{border-top:1px solid var(--line)}
+.row span{color:var(--muted)}
+.row b{text-align:right;font-weight:600}
+.stock{display:flex;align-items:center;justify-content:center;margin-top:20px;min-height:52px;border-radius:14px;background:var(--green-2);color:var(--cream);font-weight:700}
+.demo{margin-top:24px;font-size:11px;color:var(--muted);text-align:center}
+.notfound{text-align:center;padding:40px 16px}
+.list a{display:block;background:var(--card);border-radius:14px;padding:16px;margin-top:10px;font-weight:700}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="brand"><b>Daniel Pinho</b><i></i><span>Automóveis</span></div>
+  <div class="avatar" id="avatar"></div>
+  <h1 id="nome">—</h1>
+  <p class="role" id="cargo"></p>
+  <p class="where" id="where"></p>
+</header>
+
+<main id="main">
+  <section class="stats">
+    <div class="stat"><strong id="anos">–</strong><small>Anos de experiência</small></div>
+    <div class="stat"><strong id="vendidos">–</strong><small>Carros entregues</small></div>
+    <div class="stat"><strong id="esp" style="font-size:15px;line-height:1.3;padding-top:4px">–</strong><small>Especialidade</small></div>
+  </section>
+  <p class="quote" id="frase"></p>
+
+  <div class="actions">
+    <a class="btn wa" id="wa" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg>
+      Falar no WhatsApp
+    </a>
+    <a class="btn call" id="call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      Ligar
+    </a>
+    <button class="btn save" id="save" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      Guardar
+    </button>
+  </div>
+
+  <section id="carsWrap" hidden>
+    <h2>Alguns carros que entreguei</h2>
+    <div class="cars" id="cars"></div>
+  </section>
+
+  <h2>Onde me encontra</h2>
+  <div class="info">
+    <div class="row"><span>Stand</span><b id="standNome"></b></div>
+    <div class="row"><span>Morada</span><b id="morada"></b></div>
+    <div class="row"><span>Horário</span><b id="horario"></b></div>
+    <div class="row"><span>Email</span><b id="email"></b></div>
+  </div>
+
+  <a class="stock" href="../#stock">Ver todo o stock do stand →</a>
+  <p class="demo" id="demo" hidden>Perfil de demonstração — dados de exemplo.</p>
+</main>
+
+<script src="../vendedores.js"></script>
+<script>
+const S = window.STAND_INFO, V = window.VENDEDORES;
+const id = new URLSearchParams(location.search).get('v');
+const v = V.find(x => x.id === id);
+const $ = s => document.getElementById(s);
+
+if (!v) {
+  // Sem vendedor válido: mostra a equipa
+  document.querySelector('.hero h1').textContent = 'A nossa equipa';
+  $('avatar').remove();
+  $('main').innerHTML = '<div class="notfound list"><p>Escolha um consultor:</p>' +
+    V.map(x => `<a href="?v=${x.id}">${x.nome} · <span style="font-weight:500;color:var(--muted)">${x.cargo}</span></a>`).join('') + '</div>';
+} else {
+  const anos = new Date().getFullYear() - v.desde;
+  document.title = `${v.nome} · ${S.nome} ${S.sub}`;
+  $('nome').textContent = v.nome;
+  $('cargo').textContent = v.cargo;
+  $('where').textContent = `${S.nome} ${S.sub}`;
+  if (v.foto) $('avatar').style.backgroundImage = `url("${v.foto}")`;
+  else $('avatar').textContent = v.nome.split(' ').map(p => p[0]).slice(0, 2).join('');
+  $('anos').textContent = anos;
+  $('vendidos').textContent = v.vendidos >= 100 ? `+${Math.floor(v.vendidos / 10) * 10}` : v.vendidos;
+  $('esp').textContent = v.especialidade;
+  $('frase').textContent = `“${v.frase}”`;
+  const msg = `Olá ${v.nome.split(' ')[0]}, recebi o seu cartão e gostava de falar sobre um carro.`;
+  $('wa').href = `https://wa.me/${v.whatsapp}?text=${encodeURIComponent(msg)}`;
+  $('call').href = 'tel:' + v.telefone.replace(/\s/g, '');
+  $('standNome').textContent = `${S.nome} ${S.sub}`;
+  $('morada').textContent = S.morada;
+  $('horario').textContent = S.horario;
+  $('email').textContent = v.email;
+  $('demo').hidden = !v.demo;
+
+  // Guardar contacto (vCard) — abre "Adicionar contacto" no telemóvel
+  $('save').onclick = () => {
+    const [first, ...rest] = v.nome.split(' ');
+    const vcf = ['BEGIN:VCARD', 'VERSION:3.0',
+      `N:${rest.join(' ')};${first};;;`, `FN:${v.nome}`,
+      `ORG:${S.nome} ${S.sub}`, `TITLE:${v.cargo}`,
+      `TEL;TYPE=CELL:${v.telefone.replace(/\s/g, '')}`, `EMAIL:${v.email}`,
+      `URL:${location.href}`, 'END:VCARD'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([vcf], {type: 'text/vcard'}));
+    a.download = `${v.id}.vcf`;
+    a.click();
+  };
+
+  // Carros que vendeu (lê ../cars.json; se falhar, a secção fica escondida)
+  fetch('../cars.json').then(r => r.json()).then(cars => {
+    const list = v.carros.map(cid => cars.find(c => c.id === cid)).filter(Boolean);
+    if (!list.length) return;
+    $('cars').innerHTML = list.map(c =>
+      `<div class="car"><img src="../${c.imagem}" alt="${c.marca} ${c.modelo}" loading="lazy">
+       <b>${c.marca} ${c.modelo}</b><span>${c.ano || ''}${c.potencia_cv ? ' · ' + c.potencia_cv + ' cv' : ''}</span></div>`).join('');
+    $('carsWrap').hidden = false;
+  }).catch(() => {});
+}
+</script>
+</body>
+</html>
