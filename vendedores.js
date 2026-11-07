@@ -1,8 +1,6 @@
 // Dados do stand e da equipa — APENAS informação pública verificada.
 // Fontes: danielpinhoautomoveis.pt/empresa (equipa), danielpinho.standvirtual.com (cargos),
 // elferspot.com (morada, telefone, fundação). Ver README → "Fontes dos dados".
-// ⚠️ POR CONFIRMAR com o stand: telemóvel/email direto de cada vendedor
-//    (por agora todos usam o contacto geral do stand).
 window.STAND_INFO = {
   nome: 'Daniel Pinho',
   sub: 'Automóveis',
@@ -17,8 +15,9 @@ window.STAND_INFO = {
 };
 
 window.VENDEDORES = [
-  { id: 'daniel-pinho',  nome: 'Daniel Pinho',  cargo: 'Gestor Comercial', telefone: '', whatsapp: '', email: '', foto: '' },
-  { id: 'nelson-costa',  nome: 'Nelson Costa',  cargo: 'Gestor Comercial', telefone: '', whatsapp: '', email: '', foto: '' },
-  { id: 'joao-maciel',   nome: 'João Maciel',   cargo: 'Vendas',           telefone: '', whatsapp: '', email: '', foto: '' }
+  { id: 'daniel-pinho', nome: 'Daniel Pinho', cargo: 'Comercial', telefone: '+351 964 619 165', whatsapp: '351964619165', email: 'geral@danielpinhoautomoveis.pt', foto: '' },
+  { id: 'nelson-costa', nome: 'Nelson Costa', cargo: 'Comercial', telefone: '+351 924 694 380', whatsapp: '351924694380', email: 'nelson@danielpinhoautomoveis.pt', foto: '' },
+  { id: 'joao-maciel',  nome: 'João Maciel',  cargo: 'Comercial', telefone: '+351 926 902 755', whatsapp: '351926902755', email: 'dp@danielpinhoautomoveis.pt', foto: '' }
 ];
-// Campos vazios → usa o contacto geral do stand. Quando houver o número direto, basta preenchê-lo.
+// Telefones, emails e cargos: página "Contactos" de danielpinhoautomoveis.pt (nov. 2026).
+// ⚠️ Confirmar: o email do João Maciel no site é dp@ (não joao@); WhatsApp assumido = telemóvel de cada um.

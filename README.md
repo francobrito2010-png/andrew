@@ -83,7 +83,7 @@ Para testar localmente (o `fetch` precisa de servidor): `python3 -m http.server`
 | Dado | Fonte |
 |---|---|
 | Equipa: Daniel Pinho, Nelson Costa, João Maciel | danielpinhoautomoveis.pt/empresa |
-| Cargos (Gestor Comercial / Vendas) | danielpinho.standvirtual.com, site oficial |
+| Cargo, telemóvel e email de cada vendedor | danielpinhoautomoveis.pt → Contactos |
 | Morada, telefone +351 964 619 165, fundação 2020 | elferspot.com (página do dealer) |
 | Horário 09:00–13:00 · 14:30–19:00 | piscapisca.pt |
-| **Por confirmar** | telemóvel e email direto de cada vendedor (agora usam o geral do stand) |
+| **Por confirmar** | email do João Maciel (o site mostra dp@); WhatsApp = telemóvel de cada um; fotos |
