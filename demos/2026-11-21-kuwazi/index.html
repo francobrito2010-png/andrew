@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuwazi 苦娃子 — Cozinha do Norte da China · Campo Pequeno</title>
+<meta name="description" content="Kuwazi — cozinha caseira do Norte da China no Campo Pequeno, Lisboa. Noodles, gyozas e sopas feitas à mão.">
+<meta name="theme-color" content="#0E0B0A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0B0A; --ink-2:#17120F; --ink-3:#221A16;
+  --paper:#F4ECDF; --paper-dim:#CBBFAE; --muted:#8E8173;
+  --red:#C8281E; --red-2:#E23B2E; --gold:#D9A441;
+  --line:rgba(244,236,223,.12);
+  --serif:"Cormorant Garamond", "Songti SC", "Noto Serif CJK SC", Georgia, serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --cjk:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","SimSun",serif;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+
+/* DEMO ribbon */
+.demo-bar{background:var(--gold);color:var(--ink);font:600 12px/1.3 var(--sans);text-align:center;padding:7px 16px;letter-spacing:.02em}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(14,11,10,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px}
+.seal{width:38px;height:38px;border-radius:8px;background:var(--red);display:grid;place-items:center;font:700 20px/1 var(--cjk);color:var(--paper);box-shadow:inset 0 0 0 2px rgba(255,255,255,.15)}
+.logo b{font:700 22px/1 var(--serif);letter-spacing:.04em}
+.logo small{display:block;font:500 10px/1 var(--sans);color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
+.links{display:flex;gap:26px;font-size:14px;color:var(--paper-dim)}
+.links a:hover{color:var(--paper)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.lang{border:1px solid var(--line);background:none;color:var(--paper);font:600 12px var(--sans);padding:7px 10px;border-radius:999px;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);padding:15px 22px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s,background .2s}
+.btn:active{transform:scale(.97)}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--red-2)}
+.btn-ghost{border:1px solid rgba(244,236,223,.3);color:var(--paper);background:transparent}
+.btn-ghost:hover{background:rgba(244,236,223,.06)}
+.btn-sm{padding:10px 16px;font-size:13px}
+@media (max-width:860px){.links{display:none}.nav .btn-sm{display:none}}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 64px - 31px);display:grid;align-items:center;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:radial-gradient(60% 55% at 72% 55%,rgba(200,40,30,.28),transparent 70%),radial-gradient(40% 40% at 15% 20%,rgba(217,164,65,.10),transparent 70%),var(--ink)}
+.big-cjk{position:absolute;right:-2vw;top:50%;transform:translateY(-50%);z-index:-1;font:700 clamp(180px,30vw,420px)/.9 var(--cjk);color:rgba(244,236,223,.035);writing-mode:vertical-rl;letter-spacing:-.02em;user-select:none;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:56px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 12px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+h1{font:700 clamp(46px,7.2vw,96px)/.95 var(--serif);letter-spacing:-.01em;margin:18px 0 20px}
+h1 em{font-style:italic;color:var(--red-2)}
+.lede{font-size:clamp(16px,1.6vw,19px);color:var(--paper-dim);max-width:520px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 26px}
+.proof{display:flex;flex-wrap:wrap;gap:22px;align-items:center;font-size:14px;color:var(--paper-dim)}
+.stars{color:var(--gold);letter-spacing:2px;font-size:15px}
+.proof b{color:var(--paper);font-weight:700}
+.status{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--ink-3);font-size:13px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:#3BB273;box-shadow:0 0 0 4px rgba(59,178,115,.18)}
+.status.closed .dot{background:var(--red);box-shadow:0 0 0 4px rgba(200,40,30,.2)}
+
+/* Bowl illustration */
+.bowl-stage{position:relative;aspect-ratio:1/1;max-width:520px;margin-left:auto;width:100%}
+.plate{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle at 50% 45%,#2a201b 0 55%,#1b1411 56% 100%);box-shadow:0 40px 80px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.04)}
+.bowl-stage svg{position:absolute;inset:0;width:100%;height:100%}
+.steam path{fill:none;stroke:rgba(244,236,223,.35);stroke-width:3;stroke-linecap:round;stroke-dasharray:6 14;animation:steam 3.2s linear infinite}
+.steam path:nth-child(2){animation-delay:-1s}.steam path:nth-child(3){animation-delay:-2s}
+@keyframes steam{from{stroke-dashoffset:0;opacity:.0}20%{opacity:1}to{stroke-dashoffset:-80;opacity:0}}
+.photo-tag{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);white-space:nowrap;font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:6px 10px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){.steam path{animation:none}}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:20px;padding:36px 0 48px}
+  .bowl-stage{max-width:340px;margin:0 auto;order:-1}
+  .big-cjk{font-size:200px;right:-30px;top:30%}
+}
+
+/* Sections */
+section{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+h2{font:700 clamp(36px,5vw,60px)/1 var(--serif)}
+h2 .cjk{font-family:var(--cjk);color:var(--red-2);font-size:.7em;margin-right:12px;vertical-align:.08em}
+.sec-head p{max-width:420px;color:var(--paper-dim)}
+.note{font-size:12px;color:var(--gold);margin-top:8px}
+
+/* Story */
+.story{background:var(--ink-2);border-block:1px solid var(--line)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.story blockquote{font:500 italic clamp(26px,3.2vw,40px)/1.2 var(--serif)}
+.story blockquote span{color:var(--gold)}
+.story p{color:var(--paper-dim);margin-top:18px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.fact{background:var(--ink-3);border:1px solid var(--line);border-radius:14px;padding:16px}
+.fact b{display:block;font:700 30px/1 var(--serif);color:var(--paper)}
+.fact small{color:var(--muted);font-size:12px}
+.slot{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;background:
+  repeating-linear-gradient(45deg,rgba(244,236,223,.03) 0 12px,transparent 12px 24px),linear-gradient(160deg,#2b1d17,#130e0c);
+  border:1px dashed rgba(217,164,65,.45);display:grid;place-items:center;text-align:center;padding:24px}
+.slot .cjk-mark{font:700 90px/1 var(--cjk);color:rgba(200,40,30,.55)}
+.slot small{display:block;margin-top:12px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+@media (max-width:860px){.story-grid{grid-template-columns:1fr}.slot{aspect-ratio:16/11}}
+
+/* Menu */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.tab{background:var(--ink-3);border:1px solid var(--line);color:var(--paper-dim);font:600 14px var(--sans);padding:10px 18px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dish{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
+.dish:hover{transform:translateY(-4px);border-color:rgba(217,164,65,.4)}
+.dish-img{aspect-ratio:4/3;display:grid;place-items:center;font:700 64px/1 var(--cjk);color:rgba(244,236,223,.85);position:relative}
+.dish-img::after{content:"FOTO DEMO";position:absolute;top:10px;left:10px;font:700 10px var(--sans);letter-spacing:.1em;background:rgba(14,11,10,.7);color:var(--gold);padding:4px 7px;border-radius:5px}
+.dish-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.dish h3{font:700 22px/1.15 var(--serif)}
+.dish p{font-size:14px;color:var(--paper-dim);flex:1}
+.dish .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:13px}
+.price{color:var(--gold);font-weight:700}
+.tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-2)}
+.dish[hidden]{display:none}
+@media (max-width:960px){.menu-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.menu-grid{grid-template-columns:1fr;gap:12px}.dish{flex-direction:row}.dish-img{aspect-ratio:auto;width:104px;flex:0 0 104px;font-size:40px}.dish-img::after{content:"DEMO";top:6px;left:6px;font-size:9px}.dish-body{padding:14px}.dish h3{font-size:19px}.dish p{font-size:13px}.dish .row{margin-top:4px}}
+
+/* Take-away band */
+.band{background:var(--red);color:#fff;border-radius:28px;padding:44px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;position:relative;overflow:hidden}
+.band::after{content:"饺";position:absolute;right:-10px;bottom:-60px;font:700 260px/1 var(--cjk);color:rgba(0,0,0,.12)}
+.band h2{color:#fff}
+.band p{color:rgba(255,255,255,.85);margin-top:12px;max-width:460px}
+.band .btn{background:#fff;color:var(--red);position:relative;z-index:1}
+.band-r{display:flex;justify-content:flex-end;position:relative;z-index:1}
+@media (max-width:760px){.band{grid-template-columns:1fr;padding:30px 22px}.band-r{justify-content:flex-start}}
+
+/* Reviews */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rev{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.rev .score{font:700 54px/1 var(--serif)}
+.rev .score small{font-size:20px;color:var(--muted)}
+.rev .src{font-weight:600;margin-top:10px}
+.rev p{color:var(--paper-dim);font-size:14px;margin-top:6px}
+@media (max-width:860px){.rev-grid{grid-template-columns:1fr}}
+
+/* Visit */
+.visit{background:var(--ink-2);border-top:1px solid var(--line)}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{background:var(--ink-3);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.card h3{font:700 26px/1.1 var(--serif);margin-bottom:16px}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:9px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;color:var(--paper-dim)}
+.hours tr.today td{color:var(--gold);font-weight:700}
+.addr{font-size:17px}
+.addr small{display:block;color:var(--muted);font-size:14px;margin-top:6px}
+.how{display:grid;gap:10px;margin:18px 0 22px;font-size:14px;color:var(--paper-dim)}
+.how span{display:flex;gap:10px;align-items:flex-start}
+.how i{font-style:normal;flex:0 0 26px;height:26px;border-radius:7px;display:grid;place-items:center;background:var(--ink-2);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--paper)}
+form{display:grid;gap:12px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-size:12px;color:var(--muted);display:grid;gap:6px;font-weight:600;letter-spacing:.04em}
+input,select{width:100%;background:var(--ink-2);border:1px solid var(--line);color:var(--paper);font:500 15px var(--sans);padding:13px 14px;border-radius:12px;color-scheme:dark}
+input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
+@media (max-width:860px){.visit-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.f-row{grid-template-columns:1fr}}
+
+footer{padding:40px 0 110px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* Floating WA */
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:60;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.fab svg{width:30px;height:30px;fill:#fff}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar" data-pt="DEMO — proposta de site para o Kuwazi. Fotos e preços a confirmar com o restaurante." data-en="DEMO — website proposal for Kuwazi. Photos and prices to be confirmed with the restaurant.">DEMO — proposta de site para o Kuwazi. Fotos e preços a confirmar com o restaurante.</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Kuwazi">
+      <span class="seal">苦</span>
+      <span><b>KUWAZI</b><small>苦娃子家味馆</small></span>
+    </a>
+    <nav class="links">
+      <a href="#menu" data-pt="Menu" data-en="Menu">Menu</a>
+      <a href="#historia" data-pt="A casa" data-en="Our story">A casa</a>
+      <a href="#avaliacoes" data-pt="Avaliações" data-en="Reviews">Avaliações</a>
+      <a href="#visitar" data-pt="Visitar" data-en="Visit">Visitar</a>
+    </nav>
+    <div class="nav-r">
+      <button class="lang" id="lang" aria-label="Mudar idioma">EN</button>
+      <a href="#visitar" class="btn btn-red btn-sm" data-pt="Reservar" data-en="Book">Reservar</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="big-cjk" aria-hidden="true">家味馆</div>
+  <div class="wrap hero-grid">
+    <div class="rv">
+      <span class="eyebrow" data-pt="Campo Pequeno · Lisboa" data-en="Campo Pequeno · Lisbon">Campo Pequeno · Lisboa</span>
+      <h1 data-pt="Sabores de casa do <em>Norte da China</em>." data-en="Home flavours from <em>Northern China</em>.">Sabores de casa do <em>Norte da China</em>.</h1>
+      <p class="lede" data-pt="Noodles, gyozas e sopas como se fazem em família. Escondido na cave do Columbia — e um dos chineses mais bem avaliados de Lisboa." data-en="Noodles, dumplings and soups the way families make them. Hidden in the Columbia basement — and one of Lisbon's best-rated Chinese spots.">Noodles, gyozas e sopas como se fazem em família. Escondido na cave do Columbia — e um dos chineses mais bem avaliados de Lisboa.</p>
+      <div class="cta">
+        <a class="btn btn-red" href="#visitar" data-pt="Reservar mesa" data-en="Book a table">Reservar mesa</a>
+        <a class="btn btn-ghost" href="#menu" data-pt="Ver o menu" data-en="See the menu">Ver o menu</a>
+      </div>
+      <div class="proof">
+        <span><span class="stars">★★★★★</span> <b>4,8</b> · <span data-pt="+700 avaliações" data-en="700+ reviews">+700 avaliações</span></span>
+        <span class="status" id="status"><span class="dot"></span><span id="statusTxt">—</span></span>
+      </div>
+    </div>
+    <div class="bowl-stage rv" aria-hidden="true">
+      <div class="plate"></div>
+      <svg viewBox="0 0 400 400">
+        <defs>
+          <radialGradient id="broth" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#C9542B"/><stop offset="1" stop-color="#7E2414"/></radialGradient>
+          <linearGradient id="bowl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#F4ECDF"/><stop offset="1" stop-color="#BFB2A0"/></linearGradient>
+        </defs>
+        <g class="steam"><path d="M165 150 C150 120 180 100 165 70 S170 30 160 10"/><path d="M200 145 C185 115 215 95 200 65 S205 25 195 5"/><path d="M235 150 C220 120 250 100 235 70 S240 30 230 10"/></g>
+        <ellipse cx="200" cy="225" rx="128" ry="104" fill="url(#bowl)"/>
+        <ellipse cx="200" cy="215" rx="112" ry="86" fill="#1a1210"/>
+        <ellipse cx="200" cy="217" rx="104" ry="78" fill="url(#broth)"/>
+        <g fill="none" stroke="#F3D79A" stroke-width="5" stroke-linecap="round" opacity=".95">
+          <path d="M120 215 C150 195 170 240 200 215 S250 195 280 220"/>
+          <path d="M125 230 C155 212 175 255 205 230 S255 210 278 236"/>
+          <path d="M135 200 C165 182 185 228 212 202 S258 184 272 205"/>
+          <path d="M140 245 C170 230 190 268 218 244 S255 230 268 250"/>
+        </g>
+        <circle cx="160" cy="190" r="9" fill="#3E8E41"/><circle cx="246" cy="200" r="7" fill="#3E8E41"/><circle cx="226" cy="246" r="6" fill="#3E8E41"/>
+        <circle cx="175" cy="245" r="5" fill="#E8B84A"/><circle cx="252" cy="232" r="4" fill="#E8B84A"/>
+        <rect x="236" y="80" width="10" height="180" rx="5" transform="rotate(28 241 170)" fill="#5A3A26"/>
+        <rect x="256" y="84" width="10" height="180" rx="5" transform="rotate(34 261 174)" fill="#6B4730"/>
+      </svg>
+      <span class="photo-tag" data-pt="Aqui vai a vossa melhor foto" data-en="Your best photo goes here">Aqui vai a vossa melhor foto</span>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="historia">
+  <div class="wrap story-grid">
+    <div class="rv">
+      <span class="eyebrow" data-pt="A casa" data-en="Our story">A casa</span>
+      <blockquote style="margin-top:18px" data-pt="“O segredo mais bem guardado do <span>Campo Pequeno</span> está numa cave.”" data-en="“Campo Pequeno's best-kept secret is in a basement.”">“O segredo mais bem guardado do <span>Campo Pequeno</span> está numa cave.”</blockquote>
+      <p data-pt="Começámos na Mouraria e mudámo-nos para o Centro Comercial Columbia, junto a Entrecampos. A receita manteve-se: cozinha caseira do Norte da China, porções generosas e preços honestos." data-en="We started in Mouraria and moved to the Columbia shopping centre, next to Entrecampos. The recipe stayed the same: home cooking from Northern China, generous portions and honest prices.">Começámos na Mouraria e mudámo-nos para o Centro Comercial Columbia, junto a Entrecampos. A receita manteve-se: cozinha caseira do Norte da China, porções generosas e preços honestos.</p>
+      <div class="facts">
+        <div class="fact"><b>4,8★</b><small data-pt="média online" data-en="online rating">média online</small></div>
+        <div class="fact"><b>~12 €</b><small data-pt="por pessoa" data-en="per person">por pessoa</small></div>
+        <div class="fact"><b>2 min</b><small data-pt="do metro" data-en="from metro">do metro</small></div>
+      </div>
+    </div>
+    <div class="slot rv"><div><div class="cjk-mark">家</div><small data-pt="Foto do espaço — do vosso Instagram" data-en="Photo of the room — from your Instagram">Foto do espaço — do vosso Instagram</small></div></div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2><span class="cjk">菜单</span><span data-pt="Menu" data-en="Menu">Menu</span></h2>
+      <div><p data-pt="Os pratos de que os clientes mais falam. Pratos principais entre 8 € e 15 €." data-en="The dishes guests talk about most. Mains between €8 and €15.">Os pratos de que os clientes mais falam. Pratos principais entre 8 € e 15 €.</p><p class="note" data-pt="DEMO: carta e preços exatos a confirmar com o restaurante." data-en="DEMO: exact menu and prices to be confirmed.">DEMO: carta e preços exatos a confirmar com o restaurante.</p></div>
+    </div>
+    <div class="tabs rv" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-f="all" data-pt="Todos" data-en="All">Todos</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="noodles" data-pt="Noodles" data-en="Noodles">Noodles</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="dim" data-pt="Gyozas & pão" data-en="Dumplings & buns">Gyozas & pão</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="sopa" data-pt="Sopas" data-en="Soups">Sopas</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="prato" data-pt="Pratos" data-en="Mains">Pratos</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="band rv">
+      <div>
+        <h2 data-pt="Gyozas para levar." data-en="Dumplings to take home.">Gyozas para levar.</h2>
+        <p data-pt="As nossas gyozas também existem congeladas, para cozinhar em casa em 8 minutos. Encomende por WhatsApp e levante ao balcão." data-en="Our dumplings also come frozen, ready to cook at home in 8 minutes. Order on WhatsApp and pick up at the counter.">As nossas gyozas também existem congeladas, para cozinhar em casa em 8 minutos. Encomende por WhatsApp e levante ao balcão.</p>
+      </div>
+      <div class="band-r"><a class="btn" id="waTake" href="#" target="_blank" rel="noopener" data-pt="Encomendar por WhatsApp" data-en="Order on WhatsApp">Encomendar por WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="avaliacoes" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2><span class="cjk">好评</span><span data-pt="Avaliações" data-en="Reviews">Avaliações</span></h2>
+      <p data-pt="Centenas de clientes, a mesma conclusão." data-en="Hundreds of guests, one conclusion.">Centenas de clientes, a mesma conclusão.</p>
+    </div>
+    <div class="rev-grid">
+      <div class="rev rv"><div class="score">4,8<small>/5</small></div><div class="src">Restaurant Guru</div><p data-pt="718 votos · “An absolute recommendation!”" data-en="718 votes · “An absolute recommendation!”">718 votos · “An absolute recommendation!”</p></div>
+      <div class="rev rv"><div class="score">4,6<small>/5</small></div><div class="src">Intravel</div><p data-pt="611 avaliações · reserva recomendada às horas de ponta" data-en="611 reviews · booking recommended at peak hours">611 avaliações · reserva recomendada às horas de ponta</p></div>
+      <div class="rev rv"><div class="score">Time Out</div><div class="src" data-pt="Recomendado" data-en="Recommended">Recomendado</div><p data-pt="Na lista dos restaurantes do Campo Pequeno. (DEMO: juntar avaliações do Google)" data-en="Listed among Campo Pequeno's restaurants. (DEMO: add Google reviews)">Na lista dos restaurantes do Campo Pequeno. (DEMO: juntar avaliações do Google)</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visitar">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2><span class="cjk">欢迎</span><span data-pt="Visite-nos" data-en="Visit us">Visite-nos</span></h2>
+      <p data-pt="Reserve em 20 segundos: escolha o dia e a hora e enviamos a confirmação por WhatsApp." data-en="Book in 20 seconds: pick a day and time and we confirm on WhatsApp.">Reserve em 20 segundos: escolha o dia e a hora e enviamos a confirmação por WhatsApp.</p>
+    </div>
+    <div class="visit-grid">
+      <div class="card rv">
+        <h3 data-pt="Reservar mesa" data-en="Book a table">Reservar mesa</h3>
+        <form id="book">
+          <label><span data-pt="Nome" data-en="Name">Nome</span><input name="nome" required autocomplete="name"></label>
+          <div class="f-row">
+            <label><span data-pt="Dia" data-en="Date">Dia</span><input type="date" name="dia" required></label>
+            <label><span data-pt="Hora" data-en="Time">Hora</span>
+              <select name="hora" required>
+                <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option>
+                <option>18:30</option><option>19:00</option><option>19:30</option><option selected>20:00</option><option>20:30</option><option>21:00</option>
+              </select></label>
+          </div>
+          <label><span data-pt="Pessoas" data-en="Guests">Pessoas</span>
+            <select name="pessoas"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7+</option></select></label>
+          <button class="btn btn-red" type="submit" data-pt="Enviar pedido por WhatsApp" data-en="Send request on WhatsApp">Enviar pedido por WhatsApp</button>
+        </form>
+      </div>
+      <div class="card rv">
+        <h3 data-pt="Onde estamos" data-en="Where we are">Onde estamos</h3>
+        <p class="addr">Av. Júlio Dinis, 14 — Loja 11<small data-pt="Centro Comercial Columbia (piso -1) · Lisboa" data-en="Columbia Shopping Centre (floor -1) · Lisbon">Centro Comercial Columbia (piso -1) · Lisboa</small></p>
+        <div class="how">
+          <span><i>M</i><span data-pt="Metro Campo Pequeno ou Entrecampos (linha amarela)" data-en="Metro Campo Pequeno or Entrecampos (yellow line)">Metro Campo Pequeno ou Entrecampos (linha amarela)</span></span>
+          <span><i>↓</i><span data-pt="Desça à cave do Columbia — estamos lá em baixo" data-en="Go down to the Columbia basement — we're downstairs">Desça à cave do Columbia — estamos lá em baixo</span></span>
+        </div>
+        <table class="hours" id="hours"></table>
+        <div class="cta" style="margin:22px 0 0">
+          <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=Kuwazi%20Av.%20J%C3%BAlio%20Dinis%2014%20Lisboa" target="_blank" rel="noopener" data-pt="Abrir no Google Maps" data-en="Open in Google Maps">Abrir no Google Maps</a>
+          <a class="btn btn-ghost btn-sm" href="tel:+351927243468" data-pt="Ligar 927 243 468" data-en="Call 927 243 468">Ligar 927 243 468</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© Kuwazi 苦娃子家味馆 · Lisboa · <a href="https://www.instagram.com/ku.wa.zi/" target="_blank" rel="noopener">@ku.wa.zi</a></span>
+    <span data-pt="Demonstração — não é o site oficial do restaurante." data-en="Demo — not the restaurant's official website.">Demonstração — não é o site oficial do restaurante.</span>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg>
+</a>
+
+<script>
+const WA = "351927243468"; // confirmar com o restaurante
+let LANG = "pt";
+
+const DISHES = [
+  {f:"noodles", cjk:"面", bg:"#7E2414", pt:["Noodles de Pequim","Massa puxada à mão com molho de carne e soja fermentada."], en:["Beijing noodles","Hand-pulled noodles with meat and fermented soybean sauce."], tag:{pt:"Mais pedido",en:"Most ordered"}},
+  {f:"noodles", cjk:"辣", bg:"#9B2B17", pt:["Noodles picantes","Para quem gosta de picante a sério. Óleo de malagueta da casa."], en:["Spicy noodles","For real spice lovers. House chilli oil."], tag:{pt:"Picante",en:"Spicy"}},
+  {f:"noodles", cjk:"烤", bg:"#5E2A12", pt:["Noodles barbecue","Noodles salteados com carne grelhada estilo barbecue."], en:["Barbecue noodles","Stir-fried noodles with barbecue-style grilled meat."]},
+  {f:"dim", cjk:"饺", bg:"#8A5A24", pt:["Gyozas","Feitas à mão, douradas por baixo e suculentas por dentro."], en:["Gyozas","Handmade, golden on the bottom and juicy inside."], tag:{pt:"Também congeladas",en:"Also frozen"}},
+  {f:"dim", cjk:"馍", bg:"#6E4A22", pt:["Pão chinês recheado","Pão estaladiço recheado com carne estufada."], en:["Stuffed Chinese bun","Crispy bread filled with slow-braised meat."]},
+  {f:"sopa", cjk:"馄", bg:"#4E5B3A", pt:["Sopa wonton com algas","Wontons delicados num caldo leve com algas."], en:["Wonton soup with seaweed","Delicate wontons in a light broth with seaweed."]},
+  {f:"sopa", cjk:"酸", bg:"#7A3A1C", pt:["Sopa agripicante","A clássica hot & sour, ácida e reconfortante."], en:["Hot & sour soup","The classic: tangy and comforting."]},
+  {f:"sopa", cjk:"蛋", bg:"#A8452A", pt:["Sopa de tomate e ovo","O prato caseiro de todas as famílias chinesas."], en:["Tomato & egg soup","The home dish of every Chinese family."]},
+  {f:"prato", cjk:"京", bg:"#5A1F18", pt:["Porco à Pequim","Porco estaladiço com molho da casa."], en:["Beijing-style pork","Crispy pork with house sauce."]},
+  {f:"prato", cjk:"甜", bg:"#8E2E1E", pt:["Porco agridoce","O favorito de sempre, feito como deve ser."], en:["Sweet & sour pork","The all-time favourite, done right."]},
+  {f:"prato", cjk:"虾", bg:"#9A4B2A", pt:["Gambas fritas","Gambas crocantes, simples e viciantes."], en:["Fried prawns","Crispy prawns, simple and addictive."]},
+];
+
+function renderMenu(filter="all"){
+  const g = document.getElementById("menuGrid");
+  g.innerHTML = DISHES.map(d=>{
+    const t = d[LANG];
+    return `<article class="dish" ${filter!=="all"&&d.f!==filter?"hidden":""}>
+      <div class="dish-img" style="background:radial-gradient(circle at 50% 40%, ${d.bg}, #140e0c 80%)">${d.cjk}</div>
+      <div class="dish-body">
+        <h3>${t[0]}</h3><p>${t[1]}</p>
+        <div class="row"><span class="tag">${d.tag?d.tag[LANG]:""}</span><span class="price">— €</span></div>
+      </div></article>`;
+  }).join("");
+}
+
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected", x===b));
+  renderMenu(b.dataset.f);
+}));
+
+// Hours (Mon–Sat 12–16 & 18–22, Sunday closed) — confirmar
+const HOURS = [null,[[12,16],[18,22]],[[12,16],[18,22]],[[12,16],[18,22]],[[12,16],[18,22]],[[12,16],[18,22]],[[12,16],[18,22]]];
+const DAYS = {pt:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],en:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]};
+function lisbonNow(){
+  const p = new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Lisbon",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+  const wd = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(p.find(x=>x.type==="weekday").value);
+  const h = +p.find(x=>x.type==="hour").value, m = +p.find(x=>x.type==="minute").value;
+  return {wd, t:h+m/60};
+}
+function renderHours(){
+  const {wd,t} = lisbonNow();
+  const order=[1,2,3,4,5,6,0];
+  document.getElementById("hours").innerHTML = order.map(i=>{
+    const h=HOURS[i];
+    const txt = h ? h.map(r=>`${r[0]}h–${r[1]}h`).join(" · ") : (LANG==="pt"?"Fechado":"Closed");
+    return `<tr class="${i===wd?"today":""}"><td>${DAYS[LANG][i]}</td><td>${txt}</td></tr>`;
+  }).join("");
+  const open = HOURS[wd] && HOURS[wd].some(r=>t>=r[0]&&t<r[1]);
+  const st = document.getElementById("status");
+  st.classList.toggle("closed",!open);
+  document.getElementById("statusTxt").textContent = open ? (LANG==="pt"?"Aberto agora":"Open now") : (LANG==="pt"?"Fechado agora":"Closed now");
+}
+
+function wa(msg){ return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`; }
+function setLinks(){
+  document.getElementById("fab").href = wa(LANG==="pt"?"Olá! Gostaria de fazer uma reserva no Kuwazi.":"Hi! I'd like to book a table at Kuwazi.");
+  document.getElementById("waTake").href = wa(LANG==="pt"?"Olá! Queria encomendar gyozas congeladas para levar.":"Hi! I'd like to order frozen dumplings to take away.");
+}
+document.getElementById("book").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const [y,mo,d] = (f.get("dia")||"").split("-");
+  const msg = LANG==="pt"
+    ? `Olá! Reserva no Kuwazi:\nNome: ${f.get("nome")}\nDia: ${d}/${mo}\nHora: ${f.get("hora")}\nPessoas: ${f.get("pessoas")}`
+    : `Hi! Booking at Kuwazi:\nName: ${f.get("nome")}\nDate: ${d}/${mo}\nTime: ${f.get("hora")}\nGuests: ${f.get("pessoas")}`;
+  window.open(wa(msg),"_blank","noopener");
+});
+const dateIn = document.querySelector('input[type=date]');
+dateIn.min = new Date().toISOString().slice(0,10);
+
+function applyLang(){
+  document.documentElement.lang = LANG==="pt"?"pt-PT":"en";
+  document.querySelectorAll("[data-pt]").forEach(el=>{ el.innerHTML = el.dataset[LANG]; });
+  document.getElementById("lang").textContent = LANG==="pt"?"EN":"PT";
+  const active = document.querySelector('.tab[aria-selected="true"]');
+  renderMenu(active?active.dataset.f:"all"); renderHours(); setLinks();
+}
+document.getElementById("lang").addEventListener("click",()=>{ LANG = LANG==="pt"?"en":"pt"; applyLang(); });
+
+// reveal on scroll
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }),{threshold:.12}) : null;
+document.querySelectorAll(".rv").forEach(el=> io ? io.observe(el) : el.classList.add("in"));
+
+applyLang();
+setInterval(renderHours, 60000);
+</script>
+</body>
+</html>
