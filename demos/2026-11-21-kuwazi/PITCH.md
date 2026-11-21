@@ -28,7 +28,11 @@
 **€490 de setup + €39/mes.** Es un restaurante pequeño con ticket de ~12 €, así que va por debajo de la tarifa de concesionario. Con 2–3 mesas extra al mes ya lo recupera.
 Si dudan: "Pagam só quando estiver online e gostarem". Elimina el riesgo y no baja el precio.
 
+## Fotos de la demo
+Las 6 fotos son **reales de Kuwazi**, pero vienen de prensa: Time Out Lisboa y ESCS Magazine, con crédito en el pie de página. Sirven para la presentación privada. **Antes de publicar la web real hay que cambiarlas por fotos del restaurante** (o pedir permiso a esos medios).
+Dato para la conversación: su mural "青春不老，我们不散" ya es una marca. La web lo usa como eslogan, y eso suele gustar al dueño.
+
 ## Para terminar la demo (30–40 min contigo)
-- [ ] 4–6 fotos de su Instagram (platos, local, fachada de la entrada al Columbia). Van en el hero, en "A casa" y en las tarjetas del menú.
+- [ ] Fotos de los platos sin foto (noodles, gyozas, sopas), sacadas de su Instagram. Las tarjetas que dicen "Foto em breve" están preparadas para recibirlas.
 - [ ] Confirmar teléfono/WhatsApp y horario.
 - [ ] Precios reales, si se ven en sus stories o en las fotos del menú.
